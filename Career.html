@@ -236,29 +236,29 @@
               <div class="row  mt-3">
                 <div class="col-md-6 form-group">
                   <label for="TotalExp" class="form-label">Total Exp:</label>
-                  <input type="text" name="TotalExp" class="form-control" id="TotalExp" placeholder="Total Experience" required="">
+                  <input type="number" min="0" max="50" name="TotalExp" class="form-control" id="TotalExp" placeholder="Total Experience" required="">
                 </div>
                 <div class="col-md-6 form-group mt-3 mt-md-0">
                   <label for="RelevantExp" class="form-label">Relevant Exp:</label>
-                  <input type="text" class="form-control" name="RelevantExp" id="RelevantExp" placeholder="Relevant Experience" required="">
+                  <input  type="number" min="0" max="50" class="form-control" name="RelevantExp" id="RelevantExp" placeholder="Relevant Experience" required="">
                 </div>
               </div>
               
               <div class="row  mt-3">
                 <div class="col-md-6 form-group">
-                  <label for="CTC" class="form-label">CTC:</label>
-                  <input type="text" name="CTC" class="form-control" id="CTC" placeholder="CTC" required="">
+                  <label for="CTC" class="form-label">CTC (Per Annum):</label>
+                  <input type="text" name="CTC" class="form-control" id="CTC" placeholder="CTC" required="" pattern="[0-9]+(\.[0-9]+)?">
                 </div>
                 <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <label for="ExpectedCTC" class="form-label">Expected CTC:</label>
-                  <input type="text" class="form-control" name="ExpectedCTC" id="ExpectedCTC" placeholder="Expected CTC" required="">
+                  <label for="ExpectedCTC" class="form-label">Expected CTC (Per Annum):</label>
+                  <input type="text" class="form-control" name="ExpectedCTC" id="ExpectedCTC" placeholder="Expected CTC" required="" pattern="[0-9]+(\.[0-9]+)?">
                 </div>
               </div>
 
               <div class="row  mt-3">
                 <div class="col-md-6 form-group">
                   <label for="CurrentCompany" class="form-label">Current Company:</label>
-                  <input type="text" name="CurrentCompany" class="form-control" id="CurrentCompany" placeholder="CurrentCompany" required="">
+                  <input type="text" name="CurrentCompany" class="form-control" id="CurrentCompany" placeholder="CurrentCompany">
                 </div>  
                 <div class="col-md-6 form-group">
                   <label for="formFile" class="form-label">Upload Resume:</label>
@@ -407,7 +407,7 @@ const errorMessage = document.querySelector('.error-message-text');
 const sentMessage = document.querySelector('.sent-message');
   // Get the form data
   const formData = new FormData(form);
-
+  const fileInput = document.getElementById('myFile');
   // Create headers for the request
   const myHeaders = new Headers();
   myHeaders.append("Content-Disposition", "multipart/form-data");
@@ -425,7 +425,7 @@ formdata.append("TotalExp", formData.get('TotalExp'));
 formdata.append("RelevantExp", formData.get('RelevantExp'));
 formdata.append("CTC", formData.get('CTC'));
 formdata.append("ExpectedCTC", formData.get('ExpectedCTC'));
-formdata.append("DocumentPath", "");
+formdata.append("Resume", fileInput.files[0]);
 //formdata.append("Resume", fileInput.files[0], "/C:/Users/Praveenkumar R/Desktop/Aadhaar.pdf");
 
 
@@ -445,7 +445,7 @@ formdata.append("DocumentPath", "");
   //   "CTC": formData.get('CTC'),
   //   "ExpectedCTC": formData.get('ExpectedCTC')    
   // });
-debugger;
+
   // Define request options
   const requestOptions = {
     method: "POST",
@@ -455,6 +455,7 @@ debugger;
   };
 
   // Send the request using fetch API
+  //fetch("https://roshanbags.com/EcommerceAPI/Careers/InsCareersApply", requestOptions)
   fetch("https://roshanbags.com/EcommerceAPI/Careers/InsCareersApply", requestOptions)
     .then((response) => response.json()) // Parse the response as JSON
     .then((result) => {
@@ -470,6 +471,7 @@ debugger;
         errorMessage.style.display = 'none';
         errorMessage.textContent = "";
         // loadingMessage.style.display = 'none';
+        form.reset();
       } else {
         // Show the error message
         errorMessage.textContent = result.message || "An error occurred. Please try again.";
