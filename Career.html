@@ -414,12 +414,29 @@
                   <input type="text" name="CurrentCompany" class="form-control" id="CurrentCompany"
                     placeholder="CurrentCompany">
                 </div>
-                <div class="col-md-6 form-group">
-                  <label for="formFile" class="form-label">Upload Resume:</label>
-                  <input class="form-control" name="filename" type="file" id="myFile"
-                    style="height: 48px;padding-top: 11px;" accept="application/pdf,application/msword,
-                  application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  <label for="PreferredLocation" class="form-label">Referrd by:</label>
+                  <select class="form-select" aria-label="Default select example" style="height: 48px;"
+                    id="Referredby">
+                    <option selected> Referred by:</option>
+                    <option value="Praveen">Praveen Kumar</option>
+                    <option value="Mansoor">Mansoor</option>
+                    <option value="Rekha">Rekha</option>
+                    <option value="Dhinakar">Dhinakar</option>
+                    <option value="Linkedin">Linkedin</option>
+                    <option value="Advertisment">Advertisment</option>
+                  </select>
+                  <!-- <input type="text" class="form-control" name="PreferredLocation" id="PreferredLocation" placeholder="Preferred Location" required=""> -->
                 </div>
+             
+              </div>
+              <div class="row  mt-3">
+              <div class="col-md-12 form-group">
+                <label for="formFile" class="form-label">Upload Resume:</label>
+                <input class="form-control" name="filename" type="file" id="myFile"
+                  style="height: 48px;padding-top: 11px;" accept="application/pdf,application/msword,
+                application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+              </div>
               </div>
               <div class="my-3">
                 <!-- <div class="loading">Loading</div> -->
@@ -581,6 +598,7 @@
       formdata.append("CurrentCompany", formData.get('CTC'));
       formdata.append("TotalExp", formData.get('TotalExp'));
       formdata.append("RelevantExp", formData.get('RelevantExp'));
+      formdata.append("Referredby",formData.get('Referredby'));
       formdata.append("CTC", formData.get('CTC'));
       formdata.append("ExpectedCTC", formData.get('ExpectedCTC'));
       formdata.append("Resume", fileInput.files[0]);
