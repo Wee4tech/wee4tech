@@ -2837,3 +2837,11 @@ color-mix(in srgb, var(--accent-color), transparent 92%);
       padding: 6px 15px;
   }
 }
+.a-img-center
+{
+  display: flex
+  ;
+      align-items: center;
+      width: 100%;
+      justify-content: center;
+}
