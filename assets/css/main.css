@@ -53,11 +53,11 @@
 }
 
 .accent-background {
-  --background-color: #1bbd36;
+  --background-color: #10bc69;
   --default-color: #ffffff;
   --heading-color: #ffffff;
   --accent-color: #ffffff;
-  --surface-color: #2ae149;
+  --surface-color: #14eb83;
   --contrast-color: #ffffff;
 }
 
@@ -153,8 +153,8 @@ h6 {
 --------------------------------------------------------------*/
 .header {
   color: var(--default-color);
-  /* background-color: var(--background-color); */
-  background-color: #f7f7f7;
+  background-color: var(--background-color);
+  /* background-color: #f7f7f7; */
   padding: 10px 0;
   transition: all 0.5s;
   z-index: 997;
@@ -196,13 +196,48 @@ h6 {
   transition: 0.3s;
   font-size: 16px;
 }
-
+.section-title-heading h2{
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  padding-bottom: 20px;
+  position: relative;
+}
+.section-title-heading h2:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: var(--accent-color);
+  left: 0;
+  /* right: 0; */
+  bottom: 0;
+  margin: auto;
+}
 .header .header-social-links a:hover {
   color: var(--accent-color);
 }
 
 .header .header-social-links a i {
   line-height: 0px;
+}
+.call-to-action .cta-btn {
+  font-family: var(--heading-font);
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 12px 40px;
+  border-radius: 50px;
+  transition: 0.5s;
+  margin: 10px;
+  border: 2px solid var(--contrast-color);
+  color: var(--contrast-color);
+}
+.call-to-action p {
+  color: var(--default-color);
 }
 
 @media (max-width: 1200px) {
@@ -217,6 +252,7 @@ h6 {
   .header .header-social-links {
     order: 2;
     padding: 0 15px 0 0;
+    display: none;
   }
 
   .header .navmenu {
@@ -697,8 +733,8 @@ h6 {
   position: fixed;
   visibility: hidden;
   opacity: 0;
-  right: 15px;
-  bottom: 15px;
+  right: 22px;
+  bottom: 70px;
   z-index: 99999;
   background-color: var(--accent-color);
   width: 40px;
@@ -1486,31 +1522,33 @@ section,
 # Testimonials Section
 --------------------------------------------------------------*/
 .testimonials .testimonial-item {
-  background-color: var(--surface-color);
+  /* background-color: var(--surface-color);
   box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.1);
   padding: 30px;
   position: relative;
-  height: 100%;
+  height: 100%; */
+  box-sizing: content-box;
+  min-height: 320px;
 }
 
 .testimonials .testimonial-item .testimonial-img {
   width: 90px;
-  border-radius: 50px;
-  border: 6px solid var(--background-color);
-  float: left;
-  margin: 0 10px 0 0;
-}
+  border-radius: 50%;
+  margin: -40px 0 0 40px;
+  position: relative;
+  z-index: 2;
+  border: 6px solid var(--background-color);}
 
 .testimonials .testimonial-item h3 {
   font-size: 18px;
   font-weight: bold;
-  margin: 10px 0 5px 0;
+  margin: 10px 0 5px 45px;
 }
 
 .testimonials .testimonial-item h4 {
   font-size: 14px;
   color: color-mix(in srgb, var(--default-color), transparent 20%);
-  margin: 0;
+  margin: 0 0 0 45px;
 }
 
 .testimonials .testimonial-item .stars {
@@ -1545,10 +1583,46 @@ section,
 
 .testimonials .testimonial-item p {
   font-style: italic;
-  margin: 15px 0 0 0;
-  padding: 0;
+  margin: 0 15px 0 15px;
+  padding: 20px 20px 60px 20px;
+  background: color-mix(in srgb, var(--default-color), transparent 97%);
+  position: relative;
+  border-radius: 6px;
+  position: relative;
+  z-index: 1;
 }
-
+.contact.section {
+  color: var(--default-color);
+  background-color: var(--background-color);
+  padding: 60px 0;
+  scroll-margin-top: 100px;
+  overflow: clip;
+}
+.contact .info-wrap {
+  background-color: var(--surface-color);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+.contact .php-email-form {
+  background-color: var(--surface-color);
+  height: 100%;
+  padding: 30px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+.testimonials .swiper-pagination {
+  margin-top: 20px;
+  position: relative;
+}
+.testimonials .swiper-pagination .swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background-color: var(--background-color);
+  opacity: 1;
+  border: 1px solid var(--accent-color);
+}
+.testimonials .swiper-pagination .swiper-pagination-bullet-active {
+  background-color: var(--accent-color);
+}
 /*--------------------------------------------------------------
 # Features Section
 --------------------------------------------------------------*/
@@ -2405,6 +2479,9 @@ section,
   margin-bottom: 30px;
   font-size: 15px;
 }
+.contact .info-item {
+  margin-bottom: 40px;
+}
 
 .contact .info-item+.info-item {
   padding-top: 20px;
@@ -2437,7 +2514,36 @@ section,
 .contact .php-email-form {
   width: 100%;
 }
-
+.contact .info-item h3 {
+  padding: 0;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+.contact .info-item p {
+  padding: 0;
+  margin-bottom: 0;
+  font-size: 14px;
+}
+.contact .info-item i {
+  font-size: 20px;
+  color: var(--accent-color);
+  background: 
+color-mix(in srgb, var(--accent-color), transparent 92%);
+  width: 44px;
+  height: 44px;
+  display: flex
+;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  transition: all 0.3sease-in-out;
+  margin-right: 15px;
+}
+.contact .info-item:hover i {
+  background: var(--accent-color);
+  color: var(--contrast-color);
+}
 .contact .php-email-form .form-group {
   padding-bottom: 8px;
 }
@@ -2693,6 +2799,7 @@ section,
       align-items: center;
       justify-content: center;
 }
+<<<<<<< HEAD
 .teacher-area:before {
   content: "";
   position: absolute;
@@ -2971,3 +3078,51 @@ ul.b {
   list-style-type: square;
   padding-bottom: 30px;
 }
+=======
+
+.whatsapp-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  background-color: #25D366;
+  color: #fff;
+  padding: 10px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+}
+
+.whatsapp-icon:hover {
+  background-color: #2ecc71;
+}
+.header .btn-getstarted, .header .btn-getstarted:focus {
+  color: var(--contrast-color);
+  background: var(--accent-color);
+  font-size: 14px;
+  padding: 10px 18px 10px; 
+  margin: 0 0 0 10px;
+  border-radius: 50px;
+  transition: 0.3s;
+}
+@media (max-width: 1200px) {
+  .header .btn-getstarted {
+      order: 2;
+      margin: 0 15px 0 0;
+      padding: 6px 15px;
+  }
+}
+.a-img-center
+{
+  display: flex
+  ;
+      align-items: center;
+      width: 100%;
+      justify-content: center;
+}
+>>>>>>> 92c330310407505de26789c40e861550c2c69525
