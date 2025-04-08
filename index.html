@@ -779,19 +779,11 @@
             <img src="assets/img/clients/Wee4.png" class="img-fluid" alt="">
           </a>
           <div class="footer-contact pt-3">
-<<<<<<< HEAD
             <p>N0:21/15 Bashyam 1st street</p>
             <p>Otteri Chennai</p>
             
             <p class="mt-3"><strong>Phone:</strong> <a href="tel:+919500429423" class="primary-color">+91 95 004 29423</a></p>
             <p><strong>Email:</strong> <a class="primary-color" href="mailto:IT@wee4techsolutions.com">IT@wee4techsolutions.com</a></p>
-=======
-            <p>No: 21/15, Bashyam 1st Street</p>
-            <p>Chennai – 600012</p>
-
-            <p class="mt-3"><strong>Phone:</strong> <a href="tel:+919500429423">+91 95 004 29423</a></p>
-            <p><strong>Email:</strong> <a href="mailto:info@wee4techsolutions.com">info@wee4techsolutions.com</a></p>
->>>>>>> 92c330310407505de26789c40e861550c2c69525
           </div>
           <div class="social-links d-flex mt-4">
             <a href="https://x.com/Wee4tech" target="_blank"><i class="bi bi-twitter-x"></i></a>
@@ -805,19 +797,11 @@
         <div class="col-lg-3 col-md-3 footer-links">
           <h4 class="primary-color">Insights</h4>
           <ul>
-<<<<<<< HEAD
             <li><a href="#">Home</a></li>
             <li><a href="#">About us</a></li>
             <li><a href="#">Services</a></li>
             <li><a href="termsandcondition.html">Terms of service</a></li>
             <li><a href="privacypolicy.html">Privacy policy</a></li>
-=======
-            <li><i class="bi bi-chevron-right"></i><a href="#">Home</a></li>
-            <li><i class="bi bi-chevron-right"></i><a href="#">About us</a></li>
-            <li><i class="bi bi-chevron-right"></i><a href="#">Services</a></li>
-            <li><i class="bi bi-chevron-right"></i><a href="#">Terms of service</a></li>
-            <li><i class="bi bi-chevron-right"></i><a href="#">Privacy policy</a></li>
->>>>>>> 92c330310407505de26789c40e861550c2c69525
           </ul>
         </div>
 
@@ -842,12 +826,7 @@
     </div>
 
     <div class="container copyright text-center mt-4">
-<<<<<<< HEAD
       <p>© <span>Copyright</span> <strong class="px-1 sitename primary-color">Wee4techsolutions</strong> <span>All Rights Reserved</span></p>    
-=======
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">Wee4techsolutions</strong> <span>All Rights
-          Reserved</span></p>
->>>>>>> 92c330310407505de26789c40e861550c2c69525
     </div>
 
   </footer>
@@ -879,109 +858,8 @@
   </script>
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
-<<<<<<< HEAD
   <script src="assets/js/owl.carousel.min.js"></script>
   <script src="assets/js/scripts.js"></script>
-=======
-  <script>
-    // // Function to execute when the page loads
-    // window.onload = function() {
-    //   // Step 1: Create headers for the request
-    //   const myHeaders = new Headers();
-    //   myHeaders.append("Content-Type", "application/json");
-
-    //   // Step 2: Prepare the request body
-    //   const raw = JSON.stringify({
-    //     "Type": 1,
-    //     "MobileNo": 9884681650,
-    //     "FirstName": "Praveenkumar",
-    //     "Message": "Sample",
-    //     "EmailId": "prawin@gmail.com"
-    //   });
-
-    //   // Step 3: Define request options
-    //   const requestOptions = {
-    //     method: "POST",
-    //     headers: myHeaders,
-    //     body: raw,
-    //     redirect: "follow"
-    //   };
-
-    //   // Step 4: Send the request using fetch API
-    //   fetch("http://103.131.196.134/ecommerceAPI/Registration/InsContactus", requestOptions)
-    //     .then((response) => response.text()) // Parse the response as text
-    //     .then((result) => console.log(result)) // Log the result to the console
-    //     .catch((error) => console.error(error)); // Log any errors to the console
-    // };
-
-    // Get the form element
-    const form = document.querySelector('.php-email-form');
-
-    // Add an event listener to the form submit event
-    form.addEventListener('submit', (e) => {
-      // Prevent the default form submission behavior
-      e.preventDefault();
-      // const loadingMessage = document.querySelector('.loading');
-      const errorMessage = document.querySelector('.error-message-text');
-      const sentMessage = document.querySelector('.sent-message');
-      // Get the form data
-      const formData = new FormData(form);
-
-      // Create headers for the request
-      const myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-
-      // Prepare the request body
-      const raw = JSON.stringify({
-        "Type": 1,
-        "MobileNo": formData.get('phone'), // Assuming you have a phone input field
-        "FirstName": formData.get('name'),
-        "Message": formData.get('message'),
-        "EmailId": formData.get('email')
-      });
-
-      // Define request options
-      const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow"
-      };
-
-      // Send the request using fetch API
-      fetch("https://roshanbags.com/EcommerceAPI/Registration/InsContactus", requestOptions)
-        .then((response) => response.json()) // Parse the response as JSON
-        .then((result) => {
-
-          // Hide the loading message
-          // loadingMessage.style.display = 'none';
-
-          // Check the API response status
-          if (result.Status === "0") {
-            // Show the success message
-            sentMessage.textContent = "Your message has been sent. Thank you!";
-            sentMessage.style.display = 'block';
-            errorMessage.style.display = 'none';
-            errorMessage.textContent = "";
-            // loadingMessage.style.display = 'none';
-          } else {
-            // Show the error message
-            errorMessage.textContent = result.message || "An error occurred. Please try again.";
-            errorMessage.style.display = 'block';
-          }
-        })
-        .catch((error) => {
-          // Hide the loading message
-          // loadingMessage.style.display = 'none';
-
-          // Show the error message
-          errorMessage.textContent = "An error occurred. Please try again.";
-          errorMessage.style.display = 'block';
-          // console.error(error);
-        });
-    });
-  </script>
->>>>>>> 92c330310407505de26789c40e861550c2c69525
 </body>
 
 </html>
