@@ -3022,8 +3022,8 @@ h4 a{
   padding: 40px 30px 0px 30px;
 }
 .accordion .item .item-header h2 button.btn.btn-link {
-    background: #333435;
-    color: white;
+    background: #eee;
+    color: #000;
     border-radius: 0px;
     font-size: 16px;
     font-weight: 400;
