@@ -2581,7 +2581,7 @@ color-mix(in srgb, var(--accent-color), transparent 92%);
   padding: 10px 12px;
   height: 290px;
 }
-
+.get-in-touch,
 .contact .php-email-form button[type=submit] {
   background: var(--accent-color);
   color: var(--contrast-color);
@@ -3070,4 +3070,31 @@ button.btn.btn-link i {
 ul.b {
   list-style-type: square;
   padding-bottom: 30px;
+}
+.tel-cell a {
+  text-decoration: none;
+  position: fixed;
+  top: 50vh;
+  right: -84px;
+  z-index: 100;
+  transform: rotate(-89.484deg);
+  background: #10bc69;
+  padding: 8px 20px;
+  cursor: pointer;
+}
+
+
+.display_icon{
+  color: var(--nav-color);
+  padding: 12px 15px;
+  font-size: 17px;
+  font-family: var(--nav-font);
+  text-transform: uppercase;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  white-space: nowrap;
+  transition: 0.3s;
+
 }
