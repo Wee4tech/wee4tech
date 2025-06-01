@@ -3073,6 +3073,7 @@ ul.b {
 }
 .tel-cell a {
   text-decoration: none;
+
   position: fixed;
   top: 50vh;
   right: -84px;
@@ -3082,7 +3083,9 @@ ul.b {
   padding: 8px 20px;
   cursor: pointer;
 }
-
+.tel-cell h4 {
+  color: #fff;
+}
 
 .display_icon{
   color: var(--nav-color);
