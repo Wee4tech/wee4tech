@@ -430,3 +430,8 @@ body.nav-open .wa-float { display: none; }
 .tech-card li span { min-width: 0; overflow-wrap: anywhere; }
 .tech-card li { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; background: rgba(255, 255, 255, .05); color: #e3eeec; font-weight: 600; font-size: .93rem; }
 .tech-card li img, .tech-card li svg { width: 22px; height: 22px; flex-shrink: 0; color: #e3eeec; }
+
+/* ---------- Field validation ---------- */
+.field-error { color: #b42318; font-size: .86rem; font-weight: 600; margin: 6px 0 0; }
+[aria-invalid="true"] { border-color: #d92d20 !important; background: #fffbfa; }
+[aria-invalid="true"]:focus { box-shadow: 0 0 0 4px rgba(217, 45, 32, .14) !important; }

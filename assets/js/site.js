@@ -87,26 +87,136 @@
   }
   function track(name) { if (typeof window.gtag === 'function') window.gtag('event', name); }
 
+  // ---------- Form validation (inline messages) ----------
+  var RX = {
+    name: /^[A-Za-z][A-Za-z .'-]{1,59}$/,
+    email: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
+    mobile: /^[6-9][0-9]{9}$/,
+    number: /^\d+(\.\d{1,2})?$/
+  };
+  var val = function (form, id) { var el = form.querySelector('#' + id); return el ? el.value.trim() : ''; };
+
+  // Each rule returns an error message, or '' when the value is fine.
+  var CONTACT_RULES = {
+    name: function (v) { return !v ? 'Please enter your name.' : !RX.name.test(v) ? 'Use letters only (2–60 characters).' : ''; },
+    email: function (v) { return !v ? 'Please enter your email address.' : !RX.email.test(v) ? 'Enter a valid email, e.g. name@company.com.' : ''; },
+    phone: function (v) { return !v ? 'Please enter your mobile number.' : !RX.mobile.test(v) ? 'Enter a valid 10-digit mobile number.' : ''; },
+    interest: function (v) { return !v ? 'Please choose what you need.' : ''; },
+    subject: function (v) { return v.length > 100 ? 'Keep the subject under 100 characters.' : ''; },
+    message: function (v) { return !v ? 'Please tell us a little about what you need.' : v.length < 10 ? 'Please add a bit more detail (at least 10 characters).' : v.length > 1000 ? 'Keep the message under 1000 characters.' : ''; }
+  };
+
+  var years = function (label) {
+    return function (v) {
+      if (!v) return 'Please enter your ' + label + ' in years (0 if none).';
+      if (!RX.number.test(v) || Number(v) > 50) return 'Enter a number of years between 0 and 50, e.g. 2 or 3.5.';
+      return '';
+    };
+  };
+  var amount = function (label) {
+    return function (v) {
+      if (!v) return 'Please enter your ' + label + '.';
+      if (!RX.number.test(v)) return 'Enter numbers only, e.g. 450000.';
+      return '';
+    };
+  };
+  var CAREER_RULES = {
+    name: CONTACT_RULES.name,
+    email: CONTACT_RULES.email,
+    phone: CONTACT_RULES.phone,
+    Skills: function (v) { return !v ? 'Please list your key skills.' : v.length > 200 ? 'Keep skills under 200 characters.' : ''; },
+    CurrentLocation: function (v) { return !v ? 'Please enter your current location.' : ''; },
+    PreferredLocation: function (v) { return !v ? 'Please choose a preferred location.' : ''; },
+    TotalExp: years('total experience'),
+    RelevantExp: function (v, form) {
+      var e = years('relevant experience')(v);
+      if (e) return e;
+      var total = val(form, 'TotalExp');
+      return RX.number.test(total) && Number(v) > Number(total) ? 'Relevant experience can’t be more than total experience.' : '';
+    },
+    CTC: amount('current CTC'),
+    ExpectedCTC: amount('expected CTC'),
+    resume: function (v, form) {
+      var f = form.querySelector('#resume').files[0];
+      if (!f) return 'Please upload your resume.';
+      if (!/\.(pdf|docx?)$/i.test(f.name)) return 'Upload a PDF or Word document (.pdf, .doc, .docx).';
+      if (f.size > 5 * 1024 * 1024) return 'The file is too large. Please upload a resume under 5 MB.';
+      return '';
+    }
+  };
+
+  function showError(el, msg) {
+    var id = el.id + '-error';
+    var box = document.getElementById(id);
+    if (!box) {
+      box = document.createElement('p');
+      box.id = id;
+      box.className = 'field-error';
+      el.insertAdjacentElement('afterend', box);
+    }
+    box.textContent = msg;
+    box.hidden = !msg;
+    el.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    if (msg) el.setAttribute('aria-describedby', id); else el.removeAttribute('aria-describedby');
+  }
+
+  function checkField(form, rules, id) {
+    var el = form.querySelector('#' + id);
+    if (!el || !rules[id]) return true;
+    var msg = rules[id](val(form, id), form);
+    showError(el, msg);
+    return !msg;
+  }
+
+  function validate(form, rules) {
+    var first = null;
+    Object.keys(rules).forEach(function (id) {
+      if (!checkField(form, rules, id) && !first) first = form.querySelector('#' + id);
+    });
+    if (first) { first.focus(); return false; }
+    return true;
+  }
+
+  function attachValidation(form, rules) {
+    Object.keys(rules).forEach(function (id) {
+      var el = form.querySelector('#' + id);
+      if (!el) return;
+      // Validate when leaving a field; re-check while typing once an error is shown.
+      el.addEventListener('blur', function () { if (el.value.trim() || el.getAttribute('aria-invalid') === 'true') checkField(form, rules, id); });
+      el.addEventListener(el.tagName === 'SELECT' || el.type === 'file' ? 'change' : 'input', function () {
+        if (el.getAttribute('aria-invalid') === 'true') checkField(form, rules, id);
+      });
+    });
+    // Mobile: digits only, max 10
+    var phone = form.querySelector('#phone');
+    if (phone) phone.addEventListener('input', function () { phone.value = phone.value.replace(/\D/g, '').slice(0, 10); });
+    // Experience and CTC: numbers and one decimal point only
+    ['TotalExp', 'RelevantExp', 'CTC', 'ExpectedCTC'].forEach(function (id) {
+      var el = form.querySelector('#' + id);
+      if (el) el.addEventListener('input', function () { el.value = el.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'); });
+    });
+  }
+
   // Contact / enquiry form
   var contact = document.getElementById('contact-form');
   if (contact) {
+    attachValidation(contact, CONTACT_RULES);
     contact.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (!contact.reportValidity()) return;
-      var fd = new FormData(contact);
-      var topic = fd.get('interest');
-      var subject = fd.get('subject');
-      var message = (topic ? '[' + topic + '] ' : '') + (subject ? subject + ' — ' : '') + fd.get('message');
+      if (!validate(contact, CONTACT_RULES)) return;
+      var topic = val(contact, 'interest');
+      var subject = val(contact, 'subject');
+      var message = (topic ? '[' + topic + '] ' : '') + (subject ? subject + ' — ' : '') + val(contact, 'message');
       busy(contact, true);
       fetch(API_BASE + '/Registration/InsContactus', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           Type: 1,
-          MobileNo: fd.get('phone'),
-          FirstName: fd.get('name'),
+          MobileNo: val(contact, 'phone'),
+          FirstName: val(contact, 'name'),
           Message: message,
-          EmailId: fd.get('email')
+          EmailId: val(contact, 'email')
         })
       })
         .then(function (r) { return r.json(); })
@@ -127,28 +237,28 @@
   // Career application form
   var career = document.getElementById('career-form');
   if (career) {
+    attachValidation(career, CAREER_RULES);
     career.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (!career.reportValidity()) return;
+      if (!validate(career, CAREER_RULES)) return;
       if (window.grecaptcha && window.grecaptcha.getResponse().length === 0) {
         status(career, false, 'Please confirm you are not a robot.');
         return;
       }
-      var fd = new FormData(career);
       var body = new FormData();
       body.append('JobId', '0');
-      body.append('Skills', fd.get('Skills'));
-      body.append('FullName', fd.get('name'));
-      body.append('MobileNo', fd.get('phone'));
-      body.append('EmailId', fd.get('email'));
-      body.append('CurrentLocation', fd.get('CurrentLocation'));
-      body.append('PreferredLocation', fd.get('PreferredLocation'));
-      body.append('CurrentCompany', fd.get('CurrentCompany'));
-      body.append('TotalExp', fd.get('TotalExp'));
-      body.append('RelevantExp', fd.get('RelevantExp'));
-      body.append('Referredby', fd.get('Referredby'));
-      body.append('CTC', fd.get('CTC'));
-      body.append('ExpectedCTC', fd.get('ExpectedCTC'));
+      body.append('Skills', val(career, 'Skills'));
+      body.append('FullName', val(career, 'name'));
+      body.append('MobileNo', val(career, 'phone'));
+      body.append('EmailId', val(career, 'email'));
+      body.append('CurrentLocation', val(career, 'CurrentLocation'));
+      body.append('PreferredLocation', val(career, 'PreferredLocation'));
+      body.append('CurrentCompany', val(career, 'CurrentCompany'));
+      body.append('TotalExp', val(career, 'TotalExp'));
+      body.append('RelevantExp', val(career, 'RelevantExp'));
+      body.append('Referredby', val(career, 'Referredby'));
+      body.append('CTC', val(career, 'CTC'));
+      body.append('ExpectedCTC', val(career, 'ExpectedCTC'));
       body.append('Resume', career.querySelector('#resume').files[0]);
       busy(career, true);
       fetch(API_BASE + '/Careers/InsCareersApply', { method: 'POST', body: body })

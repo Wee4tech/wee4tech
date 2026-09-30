@@ -913,12 +913,12 @@ ${pageHero({ crumbs, eyebrow: 'Contact', h1: 'Get a project estimate in 24 hours
     <form id="contact-form" class="form-card" novalidate>
       <h2 style="font-size:1.4rem">Send us a message</h2>
       <div class="form-grid">
-        <div><label for="name">Name</label><input type="text" id="name" name="name" required autocomplete="name"></div>
-        <div><label for="email">Email</label><input type="email" id="email" name="email" required autocomplete="email"></div>
+        <div><label for="name">Name</label><input type="text" id="name" name="name" required maxlength="60" autocomplete="name"></div>
+        <div><label for="email">Email</label><input type="email" id="email" name="email" required maxlength="100" autocomplete="email"></div>
         <div><label for="phone">Mobile number</label><input type="tel" id="phone" name="phone" required autocomplete="tel" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" title="10-digit mobile number"></div>
         <div><label for="interest">I’m interested in</label><select id="interest" name="interest" required><option value="">Choose one</option>${opts.map(([o, al]) => `<option data-aliases="${esc(al.join('|'))}">${esc(o)}</option>`).join('')}</select></div>
-        <div class="full"><label for="subject">Subject <span class="opt">(optional)</span></label><input type="text" id="subject" name="subject"></div>
-        <div class="full"><label for="message">Message</label><textarea id="message" name="message" required placeholder="A few lines about your project, timeline or the course you want to join"></textarea></div>
+        <div class="full"><label for="subject">Subject <span class="opt">(optional)</span></label><input type="text" id="subject" name="subject" maxlength="100"></div>
+        <div class="full"><label for="message">Message</label><textarea id="message" name="message" required minlength="10" maxlength="1000" placeholder="A few lines about your project, timeline or the course you want to join"></textarea></div>
       </div>
       <p class="form-note">We respect your privacy. See our <a href="privacy-policy.html">privacy policy</a>.</p>
       <div style="margin-top:20px"><button class="btn btn-brand" type="submit"><span class="spinner" aria-hidden="true"></span> Send message</button></div>
