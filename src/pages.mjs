@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { SITE, ORG_ID, esc, abs, icon, faqHtml, ctaBand, pageHero, breadcrumbHtml } from './site.mjs';
 import { SERVICES, COURSES, COURSE_FACTS, TESTIMONIALS, CLIENTS } from './content.mjs';
+import { blogPages } from './blog.mjs';
 
 const SYLLABUS = JSON.parse(readFileSync(new URL('./syllabus.json', import.meta.url), 'utf8'));
 const svc = (slug) => SERVICES.find((s) => s.slug === slug);
@@ -23,10 +24,11 @@ const courseCard = (c, lazy = true) => `<article class="card course-card card-li
   </div>
 </article>`;
 
-const testimonialsHtml = () => `<div class="grid grid-3">${TESTIMONIALS.map((t) => `<figure class="card quote">
+const quoteHtml = (t) => `<figure class="card quote">
   <blockquote><p>${esc(t.text)}</p></blockquote>
   <figcaption><span class="avatar" aria-hidden="true">${t.name[0]}</span><span><strong>${esc(t.name)}</strong><span>${esc(t.role)}</span></span></figcaption>
-</figure>`).join('')}</div>`;
+</figure>`;
+const testimonialsHtml = () => `<div class="grid grid-3">${TESTIMONIALS.map(quoteHtml).join('')}</div>`;
 
 const clientsHtml = () => `<div class="clients">${CLIENTS.map((c) => {
   const img = `<img src="${c.img}" alt="${esc(c.name)} logo" width="${c.w}" height="${c.h}" loading="lazy" decoding="async">`;
@@ -44,38 +46,74 @@ const processHtml = () => `<ol class="steps">${PROCESS.map((p) => `<li><h3>${p.t
 
 // ---------------- Home ----------------
 const HOME_FAQS = [
-  { q: 'What does Wee4 Tech Solutions do?', a: 'Wee4 Tech Solutions is a software company in Chennai, India. We build custom software, websites and Android/iOS mobile apps; maintain and support existing applications; provide IT consulting, cloud and AI solutions, digital marketing and IT staffing; and run job-oriented IT training courses.' },
-  { q: 'Where is Wee4 Tech Solutions located?', a: `Our office is at ${SITE.address.street}, ${SITE.address.city} ${SITE.address.postal}, Tamil Nadu, India. We work with clients across India and internationally.` },
-  { q: 'Do you offer both software development and ongoing maintenance?', a: 'Yes. Most clients engage us to build a product and then continue with a monthly <a href="software-maintenance-support.html">maintenance and support plan</a>, so the same team that built the software keeps it secure and improving.' },
-  { q: 'What IT training courses do you offer?', a: 'We offer C, C++, Core Python, Advanced Python, Java, Full Stack Web Development (MERN), Data Science and Machine Learning. Each course runs for 3 months with a certificate. See <a href="courses.html">all courses</a>.' },
-  { q: 'How do I start a project with Wee4 Tech?', a: `Call ${SITE.phone}, email ${SITE.email} or use our <a href="contact.html">contact form</a>. We will schedule a free consultation to understand your requirements and share a proposal with scope, timeline and cost.` },
+  { q: 'How much does custom software or an e-commerce website cost?', a: 'It depends on the features, number of users, integrations (payments, shipping, Tally, marketplaces) and whether you need a mobile app. Instead of a vague range, we send a written, itemised estimate within 24 hours of receiving your requirement, so you can decide what goes into the first release.' },
+  { q: 'How long does it take to build an online store or a web application?', a: 'A Shopify or WooCommerce store usually takes 3–6 weeks. A custom web application or dealer portal typically takes 8–14 weeks, delivered in phases so your team starts using it early.' },
+  { q: 'Do I own the source code?', a: 'Yes. The source code, designs, domain and cloud accounts belong to you. You can keep us for support or hand everything to another team at any time.' },
+  { q: 'Can you take over software that another developer built?', a: 'Yes. We audit the code and hosting, document what we find, fix urgent issues first and then continue with regular <a href="software-maintenance-support.html">maintenance and support</a>.' },
+  { q: 'Do you work with clients outside Chennai and outside India?', a: `Yes. We are based in Otteri, Chennai and work with clients across India and abroad over video calls, WhatsApp and shared project boards. Chennai clients can also meet us in person.` },
+  { q: 'What happens after launch?', a: 'The same team that built your software stays on to support it: bug fixes, security updates, backups, monitoring and new features under a monthly plan. You are never left with software nobody understands.' },
+];
+
+const HOME_SERVICES = [
+  { slug: 'custom-software-development.html', icon: 'code', name: 'Custom Software', text: 'Order, inventory, dealer and approval systems built around how your business runs, not how a SaaS tool wants you to work.' },
+  { slug: 'ecommerce-development-company-chennai.html', icon: 'cart', name: 'E-commerce Development', text: 'Online stores that load fast, rank on Google and connect to your payments, shipping and inventory.' },
+  { slug: 'web-development-company-chennai.html', icon: 'devices', name: 'Web Applications', text: 'Customer portals, dashboards and SaaS products in React, Next.js and .NET.' },
+  { slug: 'mobile-app-development-chennai.html', icon: 'smartphone', name: 'Mobile Apps', text: 'Android and iOS apps for ordering, field staff and customers, from one Flutter codebase.' },
+  { slug: 'hire-developers-chennai.html', icon: 'users', name: 'Dedicated Developers', text: 'Pre-vetted .NET, React and Python developers who join your team on a monthly contract.' },
+];
+
+const INDUSTRIES = [
+  { icon: 'factory', t: 'Manufacturing', p: 'Orders on WhatsApp, stock in Excel, dispatch status by phone.' },
+  { icon: 'truck', t: 'Distribution & wholesale', p: 'Dealers can’t see today’s prices or place orders online.' },
+  { icon: 'store', t: 'Retail & D2C brands', p: 'Store is slow on mobile and doesn’t match shop-floor stock.' },
+  { icon: 'building', t: 'Construction & interiors', p: 'Quotes built by hand, site progress shared as WhatsApp photos.' },
+  { icon: 'briefcase', t: 'Logistics & services', p: 'Customers keep calling to ask for status updates.' },
+  { icon: 'grad', t: 'Education & healthcare', p: 'Admissions, fees and appointments still run on paper.' },
+];
+
+const TECH_GROUPS = [
+  { t: 'Web front end', icon: 'devices', d: 'Fast, SEO-friendly interfaces', items: [['React', 'react'], ['Next.js', 'nextdotjs'], ['Angular', 'angular'], ['TypeScript', 'typescript']] },
+  { t: 'Backend & APIs', icon: 'code', d: 'Secure business logic and integrations', items: [['.NET', 'dotnet'], ['Node.js', 'nodedotjs'], ['Python', 'python'], ['Django', 'django']] },
+  { t: 'Mobile apps', icon: 'smartphone', d: 'One codebase for Android and iOS', items: [['Flutter', 'flutter'], ['React Native', 'react'], ['Kotlin', 'kotlin'], ['Swift', 'swift']] },
+  { t: 'E-commerce', icon: 'cart', d: 'Stores that sell and stay in sync', items: [['Shopify', 'shopify'], ['WooCommerce', 'woocommerce'], ['WordPress', 'wordpress'], ['Razorpay', 'razorpay']] },
+  { t: 'Databases', icon: 'layers', d: 'Reliable, well-structured data', items: [['SQL Server', null, 'layers'], ['MySQL', 'mysql'], ['PostgreSQL', 'postgresql'], ['MongoDB', 'mongodb']] },
+  { t: 'Cloud & AI', icon: 'cloud', d: 'Hosting, automation and AI', items: [['AWS', null, 'cloud'], ['Azure', null, 'cloud'], ['Docker', 'docker'], ['LLM APIs', null, 'brain']] },
+];
+const techLogo = ([name, slug, fallback]) => slug
+  ? `<img src="https://cdn.simpleicons.org/${slug}/e3eeec" alt="" width="22" height="22" loading="lazy" decoding="async">`
+  : icon(fallback);
+
+const HOME_PROCESS = [
+  { t: 'Requirement call', w: '30 min · free', d: 'Tell us the problem. A voice note, a spreadsheet or a one-line idea is enough to start.' },
+  { t: 'Estimate & proposal', w: 'within 24 hours', d: 'Written scope, timeline and itemised price, with milestones you can hold us to.' },
+  { t: 'Discovery sprint', w: '1–2 weeks', d: 'Detailed specs and a clickable prototype you review before development starts.' },
+  { t: 'Build', w: 'weekly demos', d: 'Working software every week, so there are no surprises at the end.' },
+  { t: 'Launch', w: 'go-live', d: 'Deployment, data migration and hands-on training for your team.' },
+  { t: 'Support', w: 'monthly plan', d: 'Fixes, updates, monitoring and new features from the team that built it.' },
 ];
 
 function home() {
-  const featured = SERVICES;
+  const wa = `${SITE.whatsapp}?text=${encodeURIComponent('Hi Wee4 Tech, I would like a project estimate.')}`;
   return {
     path: 'index.html',
-    title: 'Software Development & IT Training Company in Chennai | Wee4 Tech',
-    ogTitle: 'Wee4 Tech Solutions — Software Development, IT Consulting & Training',
-    description: 'Chennai software company for custom software development, maintenance & support, IT consulting, cloud & AI, digital marketing, IT staffing and IT training.',
+    title: 'Custom Software & E-commerce Development in Chennai | Wee4 Tech',
+    ogTitle: 'Wee4 Tech Solutions — Custom Software & E-commerce Development, Chennai',
+    description: 'Chennai software company building custom business software, e-commerce stores, web apps and mobile apps for growing businesses. Estimate in 24 hours.',
     speakable: true,
     faqs: HOME_FAQS,
+    waText: 'Hi Wee4 Tech, I would like a project estimate.',
     body: `
 <section class="hero">
   <div class="container hero-grid">
     <div>
-      <p class="eyebrow">Software company in Chennai, India</p>
-      <h1>We build, run and grow <em>your software</em>.</h1>
-      <p class="lead">Wee4 Tech Solutions delivers custom software and mobile app development, long-term maintenance, IT consulting, digital marketing and industry-ready IT training — one partner from the first idea to the thousandth user.</p>
+      <p class="eyebrow">Custom Software &amp; E-commerce Development Company in Chennai</p>
+      <h1>Custom software &amp; e&#8209;commerce development for <em>growing businesses</em></h1>
+      <p class="lead">We replace spreadsheets, WhatsApp orders and outdated systems with web apps, online stores and mobile apps your team actually uses — built in Chennai by one team that stays on to support it.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="contact.html">Get a free consultation ${icon('arrow')}</a>
-        <a class="btn btn-ghost" href="services.html">Explore services</a>
+        <a class="btn btn-primary" href="contact.html">Get a project estimate in 24 hours ${icon('arrow')}</a>
+        <a class="btn btn-ghost" href="${wa}" target="_blank" rel="noopener">${icon('whatsapp')} WhatsApp us</a>
       </div>
-      <ul class="hero-points">
-        <li>${icon('checkCircle')} You own the code</li>
-        <li>${icon('checkCircle')} Weekly progress demos</li>
-        <li>${icon('checkCircle')} Support after launch</li>
-      </ul>
+      <p class="proof">Trusted by ${CLIENTS.map((c) => `<strong>${esc(c.name)}</strong>`).join(' · ')} · <a href="#clients">See our work</a></p>
     </div>
     <aside class="hero-card" aria-label="How we work">
       <h2>From idea to impact</h2>
@@ -93,7 +131,7 @@ function home() {
   <div class="container">
     <div class="answer">
       <h2>Who is Wee4 Tech Solutions?</h2>
-      <p>Wee4 Tech Solutions is a software development and IT services company founded in ${SITE.founded} and based in Chennai, Tamil Nadu. We help startups, SMEs and enterprises with custom software, web and mobile app development (Android and iOS), software maintenance and support, IT consulting, cloud and AI, digital marketing and IT staffing — and we train the next generation of developers through career-focused courses.</p>
+      <p>Wee4 Tech Solutions is a custom software and e-commerce development company in Chennai, founded in ${SITE.founded}. We build web applications, online stores, mobile apps and AI automation for manufacturers, distributors, retailers and growing businesses in India and abroad — and we stay on to maintain what we build. We also provide dedicated developers on monthly contracts.</p>
     </div>
   </div>
 </section>
@@ -101,78 +139,48 @@ function home() {
 <section class="section alt" id="services">
   <div class="container">
     <div class="section-head center">
-      <p class="eyebrow">What we do</p>
-      <h2>Software & IT services for every stage of growth</h2>
-      <p>Build something new, keep what you have running smoothly, or get expert advice before you invest.</p>
+      <p class="eyebrow">What we build</p>
+      <h2>Software that removes the manual work from your business</h2>
+      <p>Five things we do well. Every project includes support after launch.</p>
     </div>
-    <div class="grid grid-3">${featured.map(serviceCard).join('\n')}
-      <article class="card card-link" style="background:var(--ink);border-color:var(--ink)">
-        <div class="icon-box" style="background:rgba(253,190,38,.14);color:var(--amber)">${icon('grad')}</div>
-        <h3 style="color:#fff"><a href="courses.html">IT Training & Courses</a></h3>
-        <p style="color:#a9bdba">Job-oriented courses in Python, Java, MERN, Data Science and Machine Learning, taught by working developers.</p>
-        <span class="more" style="color:var(--amber)">View courses ${icon('arrow')}</span>
-      </article>
-    </div>
+    <div class="grid svc-grid">${HOME_SERVICES.map((s, i) => `<article class="card card-link${i < 2 ? ' featured' : ''}">
+      <div class="icon-box">${icon(s.icon)}</div>
+      <h3><a href="${s.slug}">${esc(s.name)}</a></h3>
+      <p>${esc(s.text)}</p>
+      <span class="more">Learn more ${icon('arrow')}</span>
+    </article>`).join('\n')}</div>
+    <p class="also">Also: <a href="ai-development-company-chennai.html">AI automation &amp; cloud</a> · <a href="software-maintenance-support.html">Maintenance &amp; support</a> · <a href="it-consulting.html">IT consulting</a> · <a href="digital-marketing.html">SEO &amp; marketing for stores we build</a></p>
   </div>
 </section>
 
 <section class="section">
-  <div class="container split">
-    <div>
-      <p class="eyebrow">Development + maintenance</p>
-      <h2>One team that builds it — and stays to look after it</h2>
-      <p>Many businesses get stuck when the agency that built their software moves on. We work differently: the engineers who design and build your product continue to maintain, secure and improve it after launch.</p>
-      <ul class="check-list">
-        <li><strong>Build:</strong> custom software, web apps and mobile apps designed around your process.</li>
-        <li><strong>Run:</strong> monitoring, security updates, backups and fast bug fixes.</li>
-        <li><strong>Improve:</strong> a monthly hours bank for new features, reports and UX refinements.</li>
-        <li><strong>Grow:</strong> SEO and digital marketing that brings the right users to what we built.</li>
-      </ul>
-      <a class="btn btn-brand" href="software-maintenance-support.html">See maintenance plans ${icon('arrow')}</a>
+  <div class="container">
+    <div class="section-head center">
+      <p class="eyebrow">Why Wee4 Tech</p>
+      <h2>Four promises we put in writing</h2>
     </div>
-    <img class="rounded-img" src="assets/img/optimized/team.webp" alt="Wee4 Tech team collaborating on a software project" width="1200" height="680" loading="lazy" decoding="async">
+    <div class="grid grid-4">
+      <div class="card"><div class="icon-box">${icon('clock')}</div><h3>Estimate in 24 hours</h3><p>Send your requirement and get a written scope, timeline and price the next working day.</p></div>
+      <div class="card"><div class="icon-box">${icon('target')}</div><h3>Fixed price, fixed milestones</h3><p>You pay per delivered milestone, not for hours you can’t see.</p></div>
+      <div class="card"><div class="icon-box">${icon('shield')}</div><h3>You own everything</h3><p>Source code, designs, domain and cloud accounts are in your name from day one.</p></div>
+      <div class="card"><div class="icon-box">${icon('wrench')}</div><h3>We stay after launch</h3><p>The team that built your software maintains it, on a simple monthly plan.</p></div>
+    </div>
   </div>
 </section>
 
 <section class="section alt">
   <div class="container">
     <div class="section-head center">
-      <p class="eyebrow">How we work</p>
-      <h2>A clear, predictable delivery process</h2>
-      <p>No black boxes. You see working software every week and always know what is next.</p>
+      <p class="eyebrow">Industries</p>
+      <h2>Built for businesses that have outgrown Excel and WhatsApp</h2>
+      <p>Does one of these sound familiar?</p>
     </div>
-    ${processHtml()}
+    <div class="grid grid-3">${INDUSTRIES.map((i) => `<div class="card industry"><div class="icon-box">${icon(i.icon)}</div><div><h3>${esc(i.t)}</h3><p>“${esc(i.p)}”</p></div></div>`).join('')}</div>
+    <p class="text-center mt-lg"><a class="btn btn-brand" href="contact.html">Tell us what’s slowing you down ${icon('arrow')}</a></p>
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="section-head center">
-      <p class="eyebrow">Engagement models</p>
-      <h2>Work with us the way that suits you</h2>
-    </div>
-    <div class="grid grid-4">
-      <div class="card"><div class="icon-box">${icon('target')}</div><h3>Fixed-scope project</h3><p>Agreed features, timeline and price. Ideal for MVPs and well-defined builds.</p></div>
-      <div class="card"><div class="icon-box">${icon('users')}</div><h3>Dedicated team</h3><p>A full-time team that works as an extension of yours, month to month.</p></div>
-      <div class="card"><div class="icon-box">${icon('shield')}</div><h3>Maintenance retainer</h3><p>Monthly support, updates and enhancements for live applications.</p></div>
-      <div class="card"><div class="icon-box">${icon('briefcase')}</div><h3>Staff augmentation</h3><p>Pre-screened developers who join your team on contract or contract-to-hire.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section dark">
-  <div class="container">
-    <div class="section-head center">
-      <p class="eyebrow" style="color:var(--amber)">IT training in Chennai</p>
-      <h2>Build your career with industry-focused courses</h2>
-      <p>Learn from developers who ship real software. Every course includes hands-on practice and a certificate.</p>
-    </div>
-    <div class="grid grid-4">${COURSES.slice(0, 8).map((c) => `<a class="card card-link" href="${c.slug}" style="text-decoration:none"><p class="eyebrow" style="color:var(--amber);margin-bottom:6px">${esc(c.category)}</p><h3>${esc(c.short)}</h3><p>${COURSE_FACTS.duration} · Certificate</p></a>`).join('')}</div>
-    <p class="text-center mt-lg"><a class="btn btn-primary" href="courses.html">View all courses ${icon('arrow')}</a></p>
-  </div>
-</section>
-
-<section class="section">
+<section class="section" id="clients">
   <div class="container">
     <div class="section-head center">
       <p class="eyebrow">Clients</p>
@@ -186,14 +194,47 @@ function home() {
 <section class="section alt">
   <div class="container">
     <div class="section-head center">
+      <p class="eyebrow">How we work</p>
+      <h2>From first call to launch — no surprises</h2>
+      <p>You know the price before we start and see working software every week.</p>
+    </div>
+    <ol class="steps six">${HOME_PROCESS.map((p) => `<li><h3>${esc(p.t)}</h3><p class="when">${esc(p.w)}</p><p>${esc(p.d)}</p></li>`).join('')}</ol>
+  </div>
+</section>
+
+<section class="section dark tech-section">
+  <div class="container">
+    <div class="tech-head">
+      <div>
+        <p class="eyebrow" style="color:var(--amber)">Technology</p>
+        <h2>Proven tools, chosen for your project</h2>
+      </div>
+      <p>We pick the stack that fits your team, budget and hosting — and that your next developer can maintain — not just the one we like best.</p>
+    </div>
+    <div class="tech-grid">${TECH_GROUPS.map((g) => `<div class="tech-card">
+      <div class="tech-card-head"><span class="icon-box">${icon(g.icon)}</span><div><h3>${esc(g.t)}</h3><p>${esc(g.d)}</p></div></div>
+      <ul>${g.items.map((i) => `<li>${techLogo(i)}<span>${esc(i[0])}</span></li>`).join('')}</ul>
+    </div>`).join('')}</div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="container">
+    <div class="section-head center">
       <p class="eyebrow">FAQ</p>
-      <h2>Frequently asked questions</h2>
+      <h2>Questions buyers ask us</h2>
     </div>
     ${faqHtml(HOME_FAQS)}
   </div>
 </section>
 
-${ctaBand()}
+<section class="section-sm">
+  <div class="container">
+    <p class="academy-line">${icon('grad')} Looking for IT training instead? <a href="courses.html">Explore Wee4 Academy courses</a> in Python, Java, MERN, Data Science and Machine Learning.</p>
+  </div>
+</section>
+
+${ctaBand({ title: 'Tell us what’s slowing your business down', text: 'Send a voice note, a spreadsheet or a one-line idea. You’ll get a scope, timeline and price range within 24 hours — no obligation.', primary: { label: 'Get my estimate', href: 'contact.html' } })}
 `,
   };
 }
@@ -220,7 +261,9 @@ function servicesHub() {
 ${pageHero({ crumbs, eyebrow: 'Services', h1: 'Software development & IT services', lead: 'Everything you need to plan, build, run and grow digital products — delivered by one accountable team in Chennai.' })}
 <section class="section">
   <div class="container">
-    <div class="grid grid-3">${SERVICES.map(serviceCard).join('\n')}</div>
+    <div class="grid grid-3">${SERVICES.filter((sv) => sv.group !== 'hire').map(serviceCard).join('\n')}</div>
+    <div class="section-head" style="margin-top:64px"><p class="eyebrow">Hire developers</p><h2>Add developers or a whole team</h2><p>Pre-vetted developers from Chennai on monthly contracts, for teams in India and abroad.</p></div>
+    <div class="grid grid-4">${SERVICES.filter((sv) => sv.group === 'hire').map(serviceCard).join('\n')}</div>
   </div>
 </section>
 <section class="section alt">
@@ -230,13 +273,16 @@ ${pageHero({ crumbs, eyebrow: 'Services', h1: 'Software development & IT service
       <thead><tr><th scope="col">If you want to…</th><th scope="col">Choose</th></tr></thead>
       <tbody>
         <tr><td>Build software tailored to your business process</td><td><a href="custom-software-development.html">Custom Software Development</a></td></tr>
-        <tr><td>Launch a website, online store or web portal</td><td><a href="web-app-development.html">Website & Web App Development</a></td></tr>
-        <tr><td>Launch an Android or iOS app</td><td><a href="mobile-app-development.html">Mobile App Development</a></td></tr>
+        <tr><td>Sell online with a fast store or a B2B dealer portal</td><td><a href="ecommerce-development-company-chennai.html">E-commerce Development</a></td></tr>
+        <tr><td>Launch a website, customer portal or web application</td><td><a href="web-development-company-chennai.html">Website & Web App Development</a></td></tr>
+        <tr><td>Launch an Android or iOS app</td><td><a href="mobile-app-development-chennai.html">Mobile App Development</a></td></tr>
         <tr><td>Keep an existing application secure, fast and improving</td><td><a href="software-maintenance-support.html">Software Maintenance & Support</a></td></tr>
         <tr><td>Get expert advice before investing in technology</td><td><a href="it-consulting.html">IT Consulting & Services</a></td></tr>
-        <tr><td>Move to the cloud or automate work with AI</td><td><a href="cloud-ai-solutions.html">Cloud & AI Solutions</a></td></tr>
+        <tr><td>Automate work with AI or move to the cloud</td><td><a href="ai-development-company-chennai.html">AI & Cloud Solutions</a></td></tr>
         <tr><td>Get more leads from Google, AI search and social media</td><td><a href="digital-marketing.html">Digital Marketing & SEO</a></td></tr>
-        <tr><td>Add skilled developers to your team quickly</td><td><a href="it-staffing.html">IT Staffing & Resourcing</a></td></tr>
+        <tr><td>Add skilled developers to your team quickly</td><td><a href="hire-developers-chennai.html">Hire Developers</a></td></tr>
+        <tr><td>Build a long-term offshore team in India</td><td><a href="dedicated-development-team.html">Dedicated Development Team</a></td></tr>
+        <tr><td>Build or modernise a .NET or React application</td><td><a href="dotnet-development-company-chennai.html">.NET Development</a> · <a href="react-development-company-chennai.html">React & Next.js</a></td></tr>
         <tr><td>Train yourself or your team in programming</td><td><a href="courses.html">IT Training & Courses</a></td></tr>
       </tbody>
     </table></div>
@@ -254,6 +300,243 @@ ${ctaBand()}
   };
 }
 
+
+// Extra sections for specific service pages
+const ECOM_PLATFORMS = [
+  ['Best for', 'Launching fast with little maintenance', 'Flexible stores on a budget, content-heavy brands', 'B2B pricing, complex catalogues, deep integrations'],
+  ['Time to launch', 'Fastest', 'Fast', 'Longer (phased)'],
+  ['Ongoing costs', 'Monthly Shopify plan + paid apps', 'Hosting + occasional premium plugins', 'Hosting + maintenance plan'],
+  ['Customisation', 'Within Shopify’s limits', 'High, via plugins and custom code', 'Unlimited'],
+  ['Dealer / B2B pricing', 'Limited without higher plans or apps', 'Possible with plugins', 'Built exactly to your rules'],
+  ['Who manages it', 'You, with our support', 'You, with our maintenance', 'You, with our maintenance'],
+];
+
+const ECOM_INCLUDES = [
+  'Mobile-first design tuned for fast product pages',
+  'Razorpay, PayU, UPI and cash on delivery',
+  'Shiprocket or courier integration with tracking',
+  'GST-ready invoices',
+  'WhatsApp / SMS order notifications',
+  'Stock sync with your inventory or billing',
+  'SEO basics: schema, sitemap, clean URLs, speed',
+  'Google Analytics 4 and Meta Pixel set up',
+  'Admin training and a short how-to guide',
+  'Backups, SSL and security hardening',
+];
+
+const ECOM_PACKAGES = [
+  { t: 'Launch', sub: 'Shopify or WooCommerce', items: ['Theme customised to your brand', 'Product and category setup', 'Payments, shipping and GST invoices', 'SEO and analytics basics'], best: 'New online brands and offline retailers going online' },
+  { t: 'Growth', sub: 'Shopify, WooCommerce or headless', items: ['Custom design and features', 'Inventory / billing integration', 'WhatsApp alerts, reviews, offers', 'Speed optimisation and migration'], best: 'Stores that are slow or have outgrown their setup' },
+  { t: 'Custom & B2B', sub: 'Custom build', items: ['Dealer-wise pricing and credit limits', 'Bulk and repeat ordering', 'ERP / Tally / marketplace integration', 'Web + mobile app on one backend'], best: 'Distributors, wholesalers and high-volume brands' },
+];
+
+function ecommerceExtra() {
+  return `
+<section class="section">
+  <div class="container">
+    <div class="section-head"><p class="eyebrow">Choose a platform</p><h2>Shopify, WooCommerce or custom: which is right for you?</h2><p>We work with all three, so our advice follows your business, not our preferred tool.</p></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th scope="col"></th><th scope="col">Shopify</th><th scope="col">WooCommerce</th><th scope="col">Custom / headless</th></tr></thead>
+      <tbody>${ECOM_PLATFORMS.map((r) => `<tr><th scope="row">${esc(r[0])}</th>${r.slice(1).map((c) => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody>
+    </table></div>
+  </div>
+</section>
+<section class="section alt">
+  <div class="container split top">
+    <div>
+      <p class="eyebrow">Standard in our builds</p>
+      <h2>What every store we build includes</h2>
+      <p>The things that decide whether a store actually sells — set up before launch, not added later.</p>
+    </div>
+    <ul class="check-list cols">${ECOM_INCLUDES.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
+  </div>
+</section>
+<section class="section">
+  <div class="container split top">
+    <div>
+      <p class="eyebrow">B2B e-commerce</p>
+      <h2>Dealer ordering portals for distributors and wholesalers</h2>
+      <p>If your dealers order by WhatsApp, phone or email, a consumer store isn’t the answer. A B2B portal shows each dealer their own prices and credit, lets them reorder in seconds, and sends orders straight to billing — no re-typing.</p>
+      <ul class="check-list">
+        <li>Dealer-specific price lists, discounts and credit limits</li>
+        <li>Bulk order forms and one-tap reorder from history</li>
+        <li>Order approval, dispatch status and invoices in one place</li>
+        <li>Export to Tally or Zoho; optional Android app for your sales team</li>
+      </ul>
+      <a class="btn btn-brand" href="contact.html?interest=E-commerce%20Development">Get a B2B portal estimate ${icon('arrow')}</a>
+    </div>
+    <div class="card" style="background:var(--surface)">
+      <h3>Signs you need a B2B portal</h3>
+      <ul class="check-list mb-0">
+        <li>Staff spend hours typing WhatsApp orders into Excel or Tally</li>
+        <li>Dealers call to ask for prices or stock</li>
+        <li>Price lists go out as PDFs and are soon out of date</li>
+        <li>Nobody knows outstanding credit without checking the ledger</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section class="section alt" id="packages">
+  <div class="container">
+    <div class="section-head center"><p class="eyebrow">Packages</p><h2>E-commerce packages</h2><p>Every quote is fixed and itemised, and sent within 24 hours of your requirement.</p></div>
+    <div class="grid grid-3">${ECOM_PACKAGES.map((k) => `<div class="card package"><h3>${esc(k.t)}</h3><p class="pkg-sub">${esc(k.sub)}</p><ul class="check-list">${k.items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul><p class="pkg-best"><strong>Best for:</strong> ${esc(k.best)}</p><a class="btn btn-outline" href="contact.html?interest=E-commerce%20Development">Get a quote</a></div>`).join('')}</div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="section-head center"><p class="eyebrow">Clients</p><h2>What store owners say</h2></div>
+    ${clientsHtml()}
+    <div class="grid grid-2 mt-lg">${TESTIMONIALS.filter((t) => /store|e-commerce/i.test(t.text)).map(quoteHtml).join('')}</div>
+  </div>
+</section>
+<section class="section-sm alt">
+  <div class="container split">
+    <div><p class="eyebrow">After launch</p><h2 style="font-size:1.6rem">Grow sales once your store is live</h2><p class="mb-0">We handle SEO, Google Shopping and Meta ads for stores we build, and keep the store fast and secure with a monthly plan.</p></div>
+    <div class="hero-actions" style="margin:0"><a class="btn btn-brand" href="digital-marketing.html">SEO &amp; marketing ${icon('arrow')}</a><a class="btn btn-outline" href="software-maintenance-support.html">Maintenance plans</a></div>
+  </div>
+</section>`;
+}
+
+function customExtra() {
+  const rows = [
+    ['Fits your process', 'You change how you work to fit the tool', 'Built around your exact workflow and approvals'],
+    ['Cost over time', 'Per-user monthly fees that grow with your team', 'One-time build plus an optional maintenance plan'],
+    ['Integrations', 'Limited to what the vendor supports', 'Connects to Tally, Zoho, payment gateways, your store and apps'],
+    ['Ownership', 'Vendor owns the software and your data format', 'You own the code, data and hosting'],
+    ['Changes', 'Wait for the vendor roadmap', 'Add features when your business needs them'],
+    ['Best when', 'Your process is standard and small', 'Your process is your advantage, or tools no longer fit'],
+  ];
+  return `
+<section class="section">
+  <div class="container">
+    <div class="section-head"><p class="eyebrow">Build vs buy</p><h2>Custom software vs off-the-shelf tools</h2><p>Ready-made tools are the right answer for many businesses. Custom software wins when your process doesn’t fit them.</p></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th scope="col"></th><th scope="col">Off-the-shelf / SaaS</th><th scope="col">Custom software</th></tr></thead>
+      <tbody>${rows.map((r) => `<tr><th scope="row">${esc(r[0])}</th><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join('')}</tbody>
+    </table></div>
+  </div>
+</section>
+<section class="section alt">
+  <div class="container">
+    <div class="section-head"><p class="eyebrow">Industries</p><h2>Custom software for Chennai businesses that have outgrown Excel</h2></div>
+    <div class="grid grid-3">${INDUSTRIES.map((i) => `<div class="card industry"><div class="icon-box">${icon(i.icon)}</div><div><h3>${esc(i.t)}</h3><p>“${esc(i.p)}”</p></div></div>`).join('')}</div>
+  </div>
+</section>
+<section class="section">
+  <div class="container split top">
+    <div>
+      <p class="eyebrow">Pricing</p>
+      <h2>What decides the cost of custom software?</h2>
+      <p>We send a written, itemised estimate within 24 hours — here is what drives it, so you can decide what goes into the first release.</p>
+      <a class="btn btn-brand" href="contact.html?interest=Custom%20Software%20Development">Get my estimate ${icon('arrow')}</a>
+    </div>
+    <ul class="check-list">
+      <li><strong>Number of modules and screens</strong> — orders, inventory, dealers, reports, approvals</li>
+      <li><strong>User roles and permissions</strong> — owner, staff, dealers, customers</li>
+      <li><strong>Integrations</strong> — Tally, Zoho, payment gateways, SMS/WhatsApp, e-commerce</li>
+      <li><strong>Mobile app</strong> — whether field staff or customers need an Android/iOS app</li>
+      <li><strong>Data migration</strong> — moving years of Excel or old-system data cleanly</li>
+      <li><strong>Hosting and support</strong> — cloud hosting and a monthly maintenance plan</li>
+    </ul>
+  </div>
+</section>`;
+}
+
+const HIRE_STEPS = [
+  { t: 'Share your requirement', w: 'day 0', d: 'Role, skills, experience level, working hours and duration.' },
+  { t: 'Get a shortlist', w: 'within 72 hours', d: 'Profiles of pre-vetted developers matched to your stack.' },
+  { t: 'Interview & select', w: 'your call', d: 'Interview candidates and give them a task if you wish.' },
+  { t: 'Developer starts', w: 'within a week', d: 'Onboarding into your tools, repositories and stand-ups.' },
+  { t: 'Monthly review', w: 'ongoing', d: 'Regular check-ins, and a replacement if it isn’t the right fit.' },
+];
+
+function hireExtra() {
+  const roles = [
+    ['.NET developer', 'C#, ASP.NET Core, Web API, SQL Server, Azure'],
+    ['React / Next.js developer', 'React, Next.js, TypeScript, REST/GraphQL'],
+    ['Full-stack developer', 'React + Node.js or .NET, databases, deployment'],
+    ['Python developer', 'Django / FastAPI, automation, data, AI integration'],
+    ['Mobile developer', 'Flutter or React Native, store publishing'],
+    ['QA / automation tester', 'Manual testing, Selenium / Playwright, API tests'],
+  ];
+  return `
+<section class="section">
+  <div class="container">
+    <div class="section-head"><p class="eyebrow">How it works</p><h2>From requirement to a developer on your team in about a week</h2></div>
+    <ol class="steps">${HIRE_STEPS.map((p) => `<li><h3>${esc(p.t)}</h3><p class="when">${esc(p.w)}</p><p>${esc(p.d)}</p></li>`).join('')}</ol>
+  </div>
+</section>
+<section class="section alt">
+  <div class="container">
+    <div class="section-head"><p class="eyebrow">Roles</p><h2>Developers you can hire</h2><p>Junior, mid-level and senior profiles are available for each role. Monthly pricing is shared with your shortlist.</p></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th scope="col">Role</th><th scope="col">Typical skills</th><th scope="col">Engagement</th></tr></thead>
+      <tbody>${roles.map((r) => `<tr><th scope="row">${esc(r[0])}</th><td>${esc(r[1])}</td><td>Monthly contract · contract-to-hire</td></tr>`).join('')}</tbody>
+    </table></div>
+    <p class="mt-lg"><a class="btn btn-brand" href="contact.html?interest=Hire%20Developers">Request developer profiles ${icon('arrow')}</a></p>
+  </div>
+</section>
+<section class="section">
+  <div class="container split top">
+    <div>
+      <p class="eyebrow">Vetting</p>
+      <h2>How we screen developers</h2>
+      <p>Every developer is assessed by our own engineers before you see their profile.</p>
+    </div>
+    <ul class="check-list">
+      <li>Technical interview with a senior engineer in the same stack</li>
+      <li>Practical coding task based on real project work</li>
+      <li>Code-quality review: readability, tests and version control habits</li>
+      <li>Communication check for client calls and written updates</li>
+      <li>Reference and background verification</li>
+    </ul>
+  </div>
+</section>`;
+}
+
+function dedicatedExtra() {
+  const zones = [
+    ['United Kingdom / Europe', 'IST is 3.5–5.5 hours ahead', 'Your morning overlaps our afternoon — 3 to 5 shared hours'],
+    ['UAE / Middle East', 'IST is 1.5–2.5 hours ahead', 'Almost the full working day overlaps'],
+    ['USA / Canada', 'IST is 9.5–12.5 hours ahead', 'Agreed early-morning or late-evening overlap for stand-ups'],
+    ['Australia / Singapore', 'IST is 2.5–5.5 hours behind', 'Your afternoon overlaps our morning'],
+  ];
+  return `
+<section class="section">
+  <div class="container">
+    <div class="section-head"><p class="eyebrow">Working together</p><h2>Time-zone overlap from Chennai (IST)</h2><p>We agree fixed overlap hours for stand-ups, reviews and questions before the team starts.</p></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th scope="col">Your location</th><th scope="col">Time difference</th><th scope="col">Typical overlap</th></tr></thead>
+      <tbody>${zones.map((r) => `<tr><th scope="row">${esc(r[0])}</th><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join('')}</tbody>
+    </table></div>
+  </div>
+</section>
+<section class="section alt">
+  <div class="container">
+    <div class="section-head"><p class="eyebrow">Team models</p><h2>Start small, scale when it works</h2></div>
+    <div class="grid grid-3">
+      <div class="card"><div class="icon-box">${icon('users')}</div><h3>Single developer</h3><p>One dedicated developer joining your existing team. The quickest way to add capacity.</p></div>
+      <div class="card"><div class="icon-box">${icon('layers')}</div><h3>Core team</h3><p>Two to four developers plus QA, working as a unit on one product or module.</p></div>
+      <div class="card"><div class="icon-box">${icon('rocket')}</div><h3>Full squad</h3><p>Developers, QA, UI/UX and a project lead who run delivery end to end.</p></div>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="section-head"><p class="eyebrow">Onboarding</p><h2>How a dedicated team is set up</h2></div>
+    <ol class="steps">${[
+      { t: 'Planning call', w: 'week 1', d: 'Roles, skills, overlap hours, tools and budget.' },
+      { t: 'Team proposal', w: 'within days', d: 'Team plan with monthly pricing per member.' },
+      { t: 'Interviews', w: 'week 1–2', d: 'You interview and approve every member.' },
+      { t: 'Onboarding', w: 'week 2–4', d: 'Access, tools, repositories and first sprint.' },
+      { t: 'Weekly reporting', w: 'ongoing', d: 'Progress reports and monthly reviews.' },
+    ].map((p) => `<li><h3>${esc(p.t)}</h3><p class="when">${esc(p.w)}</p><p>${esc(p.d)}</p></li>`).join('')}</ol>
+  </div>
+</section>`;
+}
+
+const SERVICE_EXTRAS = { ecommerce: ecommerceExtra, custom: customExtra, hire: hireExtra, dedicated: dedicatedExtra };
+
 // ---------------- Service detail ----------------
 function servicePage(s) {
   const crumbs = [HOME, { name: 'Services', path: 'services.html' }, { name: s.name, path: s.slug }];
@@ -262,6 +545,7 @@ function servicePage(s) {
     title: s.title,
     description: s.description,
     crumbs, faqs: s.faqs, speakable: true,
+    waText: s.waText || `Hi Wee4 Tech, I'm interested in ${s.name}.`,
     schema: {
       '@type': 'Service',
       '@id': `${abs(s.slug)}#service`,
@@ -274,7 +558,7 @@ function servicePage(s) {
       hasOfferCatalog: { '@type': 'OfferCatalog', name: s.name, itemListElement: s.included.map((i) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: i.t, description: i.d } })) },
     },
     body: `
-${pageHero({ crumbs, eyebrow: s.name, h1: esc(s.h1), lead: esc(s.lead) })}
+${pageHero({ crumbs, eyebrow: s.name, h1: esc(s.h1), lead: esc(s.lead), cta: s.ctaLabel || 'Get a project estimate', ctaHref: `contact.html?interest=${encodeURIComponent(s.name)}` })}
 <section class="section">
   <div class="container split top">
     <div>
@@ -295,6 +579,7 @@ ${pageHero({ crumbs, eyebrow: s.name, h1: esc(s.h1), lead: esc(s.lead) })}
     <div class="grid grid-3">${s.included.map((i) => `<div class="card"><div class="icon-box">${icon('check')}</div><h3>${esc(i.t)}</h3><p>${esc(i.d)}</p></div>`).join('')}</div>
   </div>
 </section>
+${s.extra ? SERVICE_EXTRAS[s.extra]() : ''}
 <section class="section">
   <div class="container">
     <div class="section-head"><p class="eyebrow">Process</p><h2>How we deliver</h2></div>
@@ -303,7 +588,7 @@ ${pageHero({ crumbs, eyebrow: s.name, h1: esc(s.h1), lead: esc(s.lead) })}
 </section>
 <section class="section-sm alt">
   <div class="container">
-    <h2 style="font-size:1.5rem">${s.slug === 'it-staffing.html' ? 'Roles we staff' : s.slug === 'digital-marketing.html' ? 'Tools we use' : 'Technologies we use'}</h2>
+    <h2 style="font-size:1.5rem">${s.slug === 'hire-developers-chennai.html' ? 'Roles we staff' : s.slug === 'digital-marketing.html' ? 'Tools we use' : 'Technologies we use'}</h2>
     <ul class="chips">${s.tech.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
   </div>
 </section>
@@ -319,14 +604,14 @@ ${pageHero({ crumbs, eyebrow: s.name, h1: esc(s.h1), lead: esc(s.lead) })}
     <div class="grid grid-3">${s.related.map((r) => serviceCard(svc(r))).join('')}</div>
   </div>
 </section>
-${ctaBand({ title: `Talk to us about ${s.name.toLowerCase()}`, text: 'Share your requirements and get a free consultation with a clear plan, timeline and estimate.' })}
+${ctaBand({ title: `Talk to us about ${s.name.toLowerCase()}`, text: 'Share your requirements and get a written scope, timeline and fixed price within 24 hours.', primary: { label: s.ctaLabel || 'Get a project estimate', href: `contact.html?interest=${encodeURIComponent(s.name)}` } })}
 `,
   };
 }
 
 // ---------------- Courses hub ----------------
 function coursesHub() {
-  const crumbs = [HOME, { name: 'Training & Courses', path: 'courses.html' }];
+  const crumbs = [HOME, { name: 'Wee4 Academy', path: 'courses.html' }];
   const faqs = [
     { q: 'Which IT courses does Wee4 Tech offer in Chennai?', a: 'C Programming, C++, Core Python, Advanced Python, Java, Full Stack Web Development (MERN), Data Science and Machine Learning.' },
     { q: 'How long are the courses and do I get a certificate?', a: `Each course runs for ${COURSE_FACTS.duration} with 1-hour sessions, and you receive a certificate on completion.` },
@@ -346,7 +631,7 @@ function coursesHub() {
       itemListElement: COURSES.map((c, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(c.slug), name: c.name })),
     },
     body: `
-${pageHero({ crumbs, eyebrow: 'IT training in Chennai', h1: 'Career-focused IT training & courses', lead: 'Learn programming, full stack development, data science and machine learning from developers who build real software every day.', actions: false, extra: `<div class="hero-actions"><a class="btn btn-primary" href="contact.html?interest=Training">Enquire about batches ${icon('arrow')}</a><a class="btn btn-ghost" href="tel:${SITE.phoneHref}">${icon('phone')} ${SITE.phone}</a></div>` })}
+${pageHero({ crumbs, eyebrow: 'IT training in Chennai', h1: 'Wee4 Academy: career-focused IT training in Chennai', lead: 'Learn programming, full stack development, data science and machine learning from developers who build real software every day.', actions: false, extra: `<div class="hero-actions"><a class="btn btn-primary" href="contact.html?interest=Training">Enquire about batches ${icon('arrow')}</a><a class="btn btn-ghost" href="tel:${SITE.phoneHref}">${icon('phone')} ${SITE.phone}</a></div>` })}
 <section class="section-sm">
   <div class="container">
     <div class="answer"><h2>What training does Wee4 Tech provide?</h2><p>Wee4 Tech Solutions offers ${COURSES.length} job-oriented IT courses in Chennai — C, C++, Core Python, Advanced Python, Java, Full Stack Web Development (MERN), Data Science and Machine Learning. Each course lasts ${COURSE_FACTS.duration}, is taught hands-on by working developers and includes a certificate.</p></div>
@@ -378,7 +663,7 @@ ${ctaBand({ title: 'Ready to start learning?', text: 'Tell us which course inter
 
 // ---------------- Course detail ----------------
 function coursePage(c) {
-  const crumbs = [HOME, { name: 'Training & Courses', path: 'courses.html' }, { name: c.short, path: c.slug }];
+  const crumbs = [HOME, { name: 'Wee4 Academy', path: 'courses.html' }, { name: c.short, path: c.slug }];
   const modules = SYLLABUS[c.slug];
   const faqs = [
     ...c.faqs,
@@ -592,15 +877,27 @@ ${pageHero({ crumbs, eyebrow: 'Careers', h1: 'Build your career with Wee4 Tech',
 // ---------------- Contact ----------------
 function contact() {
   const crumbs = [HOME, { name: 'Contact', path: 'contact.html' }];
-  const opts = ['Custom Software Development', 'Website & Web App Development', 'Mobile App Development', 'Software Maintenance & Support', 'IT Consulting', 'Cloud & AI Solutions', 'Digital Marketing & SEO', 'IT Staffing', 'Training', ...COURSES.map((c) => c.short), 'Other'];
+  // Short, plain-language choices. Aliases let service/course links pre-select the right one.
+  const opts = [
+    ['Custom business software', ['Custom Software Development', '.NET Development', 'IT Consulting & Services']],
+    ['E-commerce store', ['E-commerce Development']],
+    ['Website or web application', ['Website & Web App Development', 'React & Next.js Development']],
+    ['Mobile app (Android / iOS)', ['Mobile App Development']],
+    ['AI or automation', ['AI & Cloud Solutions']],
+    ['Hire developers / dedicated team', ['Hire Developers', 'Dedicated Development Team']],
+    ['Fix or maintain existing software', ['Software Maintenance & Support']],
+    ['SEO & digital marketing', ['Digital Marketing & SEO']],
+    ['IT training (Wee4 Academy)', ['Training', ...COURSES.map((c) => c.short)]],
+    ['Something else', ['Other']],
+  ];
   return {
     path: 'contact.html',
     pageType: 'ContactPage',
     title: 'Contact Wee4 Tech Solutions | Software Company in Chennai',
-    description: `Contact Wee4 Tech Solutions, Chennai. Call ${SITE.phone} or email ${SITE.email} for software, IT consulting, marketing or training.`,
+    description: `Get a custom software, e-commerce or app estimate in 24 hours from Wee4 Tech Solutions, Chennai. Call or WhatsApp ${SITE.phone} or send your requirement.`,
     crumbs,
     body: `
-${pageHero({ crumbs, eyebrow: 'Contact', h1: 'Let’s talk about your project', lead: 'Tell us what you want to build, fix or learn. We usually reply within one business day.', actions: false })}
+${pageHero({ crumbs, eyebrow: 'Contact', h1: 'Get a project estimate in 24 hours', lead: 'Tell us what you want to build, fix or automate. We reply with a written scope, timeline and price.', actions: false })}
 <section class="section">
   <div class="container split top">
     <div>
@@ -616,12 +913,12 @@ ${pageHero({ crumbs, eyebrow: 'Contact', h1: 'Let’s talk about your project', 
     <form id="contact-form" class="form-card" novalidate>
       <h2 style="font-size:1.4rem">Send us a message</h2>
       <div class="form-grid">
-        <div><label for="name">Name</label><input type="text" id="name" name="name" required autocomplete="name"></div>
-        <div><label for="email">Email</label><input type="email" id="email" name="email" required autocomplete="email"></div>
+        <div><label for="name">Name</label><input type="text" id="name" name="name" required maxlength="60" autocomplete="name"></div>
+        <div><label for="email">Email</label><input type="email" id="email" name="email" required maxlength="100" autocomplete="email"></div>
         <div><label for="phone">Mobile number</label><input type="tel" id="phone" name="phone" required autocomplete="tel" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" title="10-digit mobile number"></div>
-        <div><label for="interest">I’m interested in</label><select id="interest" name="interest" required><option value="">Choose one</option>${opts.map((o) => `<option>${esc(o)}</option>`).join('')}</select></div>
-        <div class="full"><label for="subject">Subject <span class="opt">(optional)</span></label><input type="text" id="subject" name="subject"></div>
-        <div class="full"><label for="message">Message</label><textarea id="message" name="message" required placeholder="A few lines about your project, timeline or the course you want to join"></textarea></div>
+        <div><label for="interest">I’m interested in</label><select id="interest" name="interest" required><option value="">Choose one</option>${opts.map(([o, al]) => `<option data-aliases="${esc(al.join('|'))}">${esc(o)}</option>`).join('')}</select></div>
+        <div class="full"><label for="subject">Subject <span class="opt">(optional)</span></label><input type="text" id="subject" name="subject" maxlength="100"></div>
+        <div class="full"><label for="message">Message</label><textarea id="message" name="message" required minlength="10" maxlength="1000" placeholder="A few lines about your project, timeline or the course you want to join"></textarea></div>
       </div>
       <p class="form-note">We respect your privacy. See our <a href="privacy-policy.html">privacy policy</a>.</p>
       <div style="margin-top:20px"><button class="btn btn-brand" type="submit"><span class="spinner" aria-hidden="true"></span> Send message</button></div>
@@ -631,7 +928,7 @@ ${pageHero({ crumbs, eyebrow: 'Contact', h1: 'Let’s talk about your project', 
 </section>
 `,
     scripts: `<script>
-(function(){var p=new URLSearchParams(location.search).get('interest');if(!p)return;var s=document.getElementById('interest');for(var i=0;i<s.options.length;i++){if(s.options[i].text===p){s.selectedIndex=i;return;}}})();
+(function(){var p=new URLSearchParams(location.search).get('interest');if(!p)return;var s=document.getElementById('interest');for(var i=1;i<s.options.length;i++){var o=s.options[i];if(o.text===p||(o.getAttribute('data-aliases')||'').split('|').indexOf(p)>-1){s.selectedIndex=i;if(o.text!==p){document.getElementById('message').value='Interested in: '+p+'\\n';}return;}}})();
 </script>`,
   };
 }
@@ -725,13 +1022,13 @@ function notFound() {
 }
 
 export function allPages() {
-  return [home(), servicesHub(), ...SERVICES.map(servicePage), coursesHub(), ...COURSES.map(coursePage), about(), career(), contact(), privacy(), terms(), notFound()];
+  return [home(), servicesHub(), ...SERVICES.map(servicePage), coursesHub(), ...COURSES.map(coursePage), about(), ...blogPages(), career(), contact(), privacy(), terms(), notFound()];
 }
 
 // Old URLs → new URLs (static redirect stubs)
 export const REDIRECTS = {
   ...Object.fromEntries(COURSES.map((c) => [c.old, c.slug])),
-  'service-details.html': 'it-staffing.html',
+  'service-details.html': 'hire-developers-chennai.html',
   'privacypolicy.html': 'privacy-policy.html',
   'termsandcondition.html': 'terms-and-conditions.html',
   'testimonials.html': 'about.html',
@@ -739,6 +1036,9 @@ export const REDIRECTS = {
   'portfolio.html': 'services.html',
   'portfolio-details.html': 'services.html',
   'pricing.html': 'contact.html',
-  'blog.html': 'index.html',
-  'blog-details.html': 'index.html',
+  'blog-details.html': 'blog.html',
+  'web-app-development.html': 'web-development-company-chennai.html',
+  'mobile-app-development.html': 'mobile-app-development-chennai.html',
+  'it-staffing.html': 'hire-developers-chennai.html',
+  'cloud-ai-solutions.html': 'ai-development-company-chennai.html',
 };

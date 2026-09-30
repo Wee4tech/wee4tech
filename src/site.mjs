@@ -75,6 +75,13 @@ const P = {
   briefcase: '<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
   handshake: '<path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/>',
   search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+  cart: '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>',
+  factory: '<path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/>',
+  truck: '<path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5v8h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/>',
+  store: '<path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7"/>',
+  building: '<rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/>',
+  heart: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+  file: '<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/>',
   rocket: '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>',
   x: '<path d="M4 4l16 16M20 4 4 20"/>',
 };
@@ -101,7 +108,7 @@ export function orgSchema(services, courses) {
     url: `${SITE.url}/`,
     logo: { '@type': 'ImageObject', url: `${SITE.url}/assets/img/logo.png`, width: 480, height: 128 },
     image: `${SITE.url}${SITE.ogImage}`,
-    description: 'Wee4 Tech Solutions is a Chennai-based software company offering custom software development, mobile app development, software maintenance and support, IT consulting, digital marketing, IT staffing and job-oriented IT training.',
+    description: 'Wee4 Tech Solutions is a Chennai-based software company offering custom software development, e-commerce development, web and mobile app development, software maintenance and support, IT consulting, digital marketing, IT staffing and job-oriented IT training.',
     foundingDate: SITE.founded,
     email: SITE.email,
     telephone: SITE.phoneHref,
@@ -164,7 +171,7 @@ export function faqHtml(faqs) {
     .join('\n')}</div>`;
 }
 
-export function ctaBand({ title = 'Have a project or training need in mind?', text = 'Tell us what you want to build or learn. We will reply within one business day with clear next steps — no obligation.', primary = { label: 'Get a free consultation', href: 'contact.html' } } = {}) {
+export function ctaBand({ title = 'Have a project or training need in mind?', text = 'Tell us what you want to build or learn. We will reply within one business day with clear next steps — no obligation.', primary = { label: 'Get a project estimate', href: 'contact.html' } } = {}) {
   return `<section class="section-sm"><div class="container"><div class="cta-band">
   <div><h2>${esc(title)}</h2><p>${esc(text)}</p></div>
   <div class="actions"><a class="btn btn-primary" href="${primary.href}">${esc(primary.label)} ${icon('arrow')}</a><a class="btn btn-ghost" href="tel:${SITE.phoneHref}">${icon('phone')} Call ${SITE.phone}</a></div>
@@ -185,11 +192,14 @@ function header(active, services) {
           <button class="nav-parent" type="button" aria-expanded="false"${svcActive ? ' style="color:var(--brand)"' : ''}>Services ${icon('chevron')}</button>
           <ul class="submenu">
             <li><a href="services.html"${is('services.html')}>All services<small>Overview of what we do</small></a></li>
-            ${services.map((s) => `<li><a href="${s.slug}"${is(s.slug)}>${esc(s.name)}<small>${esc(s.menu)}</small></a></li>`).join('\n            ')}
+            ${services.filter((s) => s.group !== 'hire').map((s) => `<li><a href="${s.slug}"${is(s.slug)}>${esc(s.name)}<small>${esc(s.menu)}</small></a></li>`).join('\n            ')}
+            <li class="sub-label">Hire developers</li>
+            ${services.filter((s) => s.group === 'hire').map((s) => `<li><a href="${s.slug}"${is(s.slug)}>${esc(s.name)}<small>${esc(s.menu)}</small></a></li>`).join('\n            ')}
           </ul>
         </li>
-        <li><a href="courses.html"${is('courses.html')}>Training</a></li>
+        <li><a href="courses.html"${is('courses.html')}>Academy</a></li>
         <li><a href="about.html"${is('about.html')}>About</a></li>
+        <li><a href="blog.html"${is('blog.html')}>Blog</a></li>
         <li><a href="career.html"${is('career.html')}>Careers</a></li>
         <li class="nav-cta"><a href="contact.html"${is('contact.html')}>Contact us</a></li>
       </ul>
@@ -204,7 +214,7 @@ function footer(services, courses) {
     <div class="footer-grid">
       <div>
         <a class="footer-logo" href="./"><img src="assets/img/optimized/logo.webp" alt="${SITE.name}" width="150" height="40" loading="lazy"></a>
-        <p>${SITE.name} is a Chennai-based software development, IT consulting and IT training company, founded in ${SITE.founded}.</p>
+        <p>${SITE.name} is a custom software and e-commerce development company in Chennai, founded in ${SITE.founded}. We also run Wee4 Academy for IT training.</p>
         <address>${SITE.address.street},<br>${SITE.address.city}, ${SITE.address.region} ${SITE.address.postal}, India</address>
         <p class="mt-0"><a href="tel:${SITE.phoneHref}">${SITE.phone}</a><br><a href="mailto:${SITE.email}">${SITE.email}</a></p>
         <div class="social">
@@ -216,16 +226,19 @@ function footer(services, courses) {
       </div>
       <div>
         <h2>Services</h2>
-        <ul>${services.map((s) => `<li><a href="${s.slug}">${esc(s.name)}</a></li>`).join('')}</ul>
+        <ul>${services.filter((s) => s.group !== 'hire').map((s) => `<li><a href="${s.slug}">${esc(s.name)}</a></li>`).join('')}</ul>
       </div>
       <div>
-        <h2>Training</h2>
+        <h2>Hire developers</h2>
+        <ul>${services.filter((s) => s.group === 'hire').map((s) => `<li><a href="${s.slug}">${esc(s.name)}</a></li>`).join('')}</ul>
+        <h2 style="margin-top:28px">Wee4 Academy</h2>
         <ul>${courses.map((c) => `<li><a href="${c.slug}">${esc(c.short)}</a></li>`).join('')}</ul>
       </div>
       <div>
         <h2>Company</h2>
         <ul>
           <li><a href="about.html">About us</a></li>
+          <li><a href="blog.html">Blog</a></li>
           <li><a href="career.html">Careers</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="services.html">All services</a></li>
@@ -319,7 +332,7 @@ ${header(page.path, services)}
 ${page.body}
 </main>
 ${footer(services, courses)}
-<a class="wa-float" href="${SITE.whatsapp}?text=${encodeURIComponent('Hi Wee4 Tech, I would like to know more about your services.')}" target="_blank" rel="noopener" aria-label="Chat with Wee4 Tech on WhatsApp" data-wa>${icon('whatsapp')}<span class="wa-label">Chat with us</span></a>
+<a class="wa-float" href="${SITE.whatsapp}?text=${encodeURIComponent(page.waText || 'Hi Wee4 Tech, I would like to know more about your services.')}" target="_blank" rel="noopener" aria-label="Chat with Wee4 Tech on WhatsApp" data-wa>${icon('whatsapp')}<span class="wa-label">Chat with us</span></a>
 <script src="assets/js/site.js?v=${ver('assets/js/site.js')}" defer></script>
 ${page.scripts || ''}
 </body>
@@ -327,14 +340,14 @@ ${page.scripts || ''}
 `;
 }
 
-export function pageHero({ crumbs, eyebrow, h1, lead, actions = true, extra = '' }) {
+export function pageHero({ crumbs, eyebrow, h1, lead, actions = true, extra = '', cta = 'Get a project estimate', ctaHref = 'contact.html' }) {
   return `<section class="page-hero">
   <div class="container">
     ${crumbs ? breadcrumbHtml(crumbs) : ''}
     ${eyebrow ? `<p class="eyebrow">${esc(eyebrow)}</p>` : ''}
     <h1>${h1}</h1>
     ${lead ? `<p class="lead">${lead}</p>` : ''}
-    ${actions ? `<div class="hero-actions"><a class="btn btn-primary" href="contact.html">Get a free consultation ${icon('arrow')}</a><a class="btn btn-ghost" href="tel:${SITE.phoneHref}">${icon('phone')} ${SITE.phone}</a></div>` : ''}
+    ${actions ? `<div class="hero-actions"><a class="btn btn-primary" href="${ctaHref}">${esc(cta)} ${icon('arrow')}</a><a class="btn btn-ghost" href="tel:${SITE.phoneHref}">${icon('phone')} ${SITE.phone}</a></div>` : ''}
     ${extra}
   </div>
 </section>`;
