@@ -3,7 +3,8 @@ import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 
 // Content hash appended to CSS/JS URLs so browsers fetch new versions after each deploy
-const ver = (p) => createHash('md5').update(readFileSync(new URL(`../${p}`, import.meta.url))).digest('hex').slice(0, 8);
+// (line endings are normalised so the hash is the same on Windows and Linux checkouts)
+const ver = (p) => createHash('md5').update(readFileSync(new URL(`../${p}`, import.meta.url), 'utf8').replace(/\r\n/g, '\n')).digest('hex').slice(0, 8);
 
 export const SITE = {
   url: 'https://wee4techsolutions.com',
