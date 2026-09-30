@@ -80,7 +80,7 @@ Sitemap: ${SITE.url}/sitemap.xml
 const md = (s) => s.replace(/<[^>]+>/g, '');
 out('llms.txt', `# ${SITE.name}
 
-> ${SITE.name} is a software development, IT consulting and IT training company founded in ${SITE.founded} and based in Chennai, Tamil Nadu, India. It builds custom software, websites and Android/iOS mobile apps; maintains and supports existing applications; provides IT consulting, cloud and AI solutions, digital marketing and IT staffing; and runs job-oriented programming courses.
+> ${SITE.name} is a software development, IT consulting and IT training company founded in ${SITE.founded} and based in Chennai, Tamil Nadu, India. It builds custom business software, e-commerce stores, web applications and Android/iOS mobile apps; maintains and supports existing applications; provides IT consulting, cloud and AI solutions, digital marketing and IT staffing; and runs job-oriented programming courses.
 
 - Address: ${SITE.address.street}, ${SITE.address.city}, ${SITE.address.region} ${SITE.address.postal}, India
 - Phone: ${SITE.phone}

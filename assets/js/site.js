@@ -64,9 +64,12 @@
     }, 2500);
   }
 
-  // Track WhatsApp clicks as leads
+  // Track WhatsApp and phone clicks as leads
   document.querySelectorAll('a[href^="https://wa.me/"]').forEach(function (a) {
     a.addEventListener('click', function () { if (typeof window.gtag === 'function') window.gtag('event', 'whatsapp_click'); });
+  });
+  document.querySelectorAll('a[href^="tel:"]').forEach(function (a) {
+    a.addEventListener('click', function () { if (typeof window.gtag === 'function') window.gtag('event', 'phone_click'); });
   });
 
   // Footer year
@@ -84,37 +87,89 @@
   }
   function track(name) { if (typeof window.gtag === 'function') window.gtag('event', name); }
 
-  // Contact / enquiry form
+  // Contact / enquiry form (two steps; works as one long form without JS)
   var contact = document.getElementById('contact-form');
   if (contact) {
+    var step1 = contact.querySelector('[data-step="1"]');
+    var step2 = contact.querySelector('[data-step="2"]');
+    var ind2 = contact.querySelector('[data-step-ind="2"]');
+    var budget = contact.querySelector('#budget');
+
+    // Show budget bands in USD for visitors outside India
+    try {
+      var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+      if (tz && !/Calcutta|Kolkata/.test(tz)) {
+        Array.prototype.forEach.call(budget.options, function (o) { if (o.dataset.usd) o.textContent = o.dataset.usd; });
+      }
+    } catch (err) { /* keep INR labels */ }
+
+    var showStep = function (n) {
+      step1.hidden = n !== 1;
+      step2.hidden = n !== 2;
+      if (ind2) ind2.classList.toggle('on', n === 2);
+    };
+    showStep(1);
+
+    contact.querySelector('[data-next]').addEventListener('click', function () {
+      var ok = Array.prototype.every.call(step1.querySelectorAll('input, select'), function (el) { return el.reportValidity(); });
+      if (!ok) return;
+      showStep(2);
+      step2.querySelector('legend').focus();
+      track('lead_step1');
+    });
+    contact.querySelector('[data-back]').addEventListener('click', function () { showStep(1); });
+
+    var label = function (name) {
+      var el = contact.elements[name];
+      if (!el || !el.value) return '';
+      return el.tagName === 'SELECT' ? el.options[el.selectedIndex].textContent : el.value.trim();
+    };
+
     contact.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (!contact.reportValidity()) return;
-      var fd = new FormData(contact);
-      var topic = fd.get('interest');
-      var subject = fd.get('subject');
-      var message = (topic ? '[' + topic + '] ' : '') + (subject ? subject + ' — ' : '') + fd.get('message');
+      if (!step1.hidden) { contact.querySelector('[data-next]').click(); return; }
+      var fields = [
+        ['Company', label('company')], ['Business', label('business')], ['Uses today', label('existing')],
+        ['Budget', label('budget')], ['Timeline', label('timeline')], ['Users', label('users')],
+        ['Prefers', label('contactpref')], ['Website/software', label('website')]
+      ].filter(function (f) { return f[1]; }).map(function (f) { return f[0] + ': ' + f[1]; });
+      var details = label('message');
+      var message = '[' + label('interest') + '] ' + fields.join(' | ') + (details ? ' | Details: ' + details : '');
+      var phone = (contact.elements.phone.value || '').replace(/[^0-9]/g, '');
       busy(contact, true);
       fetch(API_BASE + '/Registration/InsContactus', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           Type: 1,
-          MobileNo: fd.get('phone'),
-          FirstName: fd.get('name'),
+          MobileNo: phone,
+          FirstName: contact.elements.name.value.trim(),
           Message: message,
-          EmailId: fd.get('email')
+          EmailId: contact.elements.email.value.trim()
         })
       })
         .then(function (r) { return r.json(); })
         .then(function (res) {
-          if (res.Status === '0') {
-            status(contact, true, 'Thank you! Your message has been sent. We usually reply within one business day.');
-            contact.reset();
-            track('generate_lead');
-          } else {
+          if (res.Status !== '0') {
             status(contact, false, res.message || 'Something went wrong. Please try again or email info@wee4techsolutions.com.');
+            return;
           }
+          var b = budget.value;
+          var hot = b === 'b3' || b === 'b4' || contact.elements.timeline.value === 'As soon as possible';
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'generate_lead', { service: label('interest'), budget: label('budget') || 'not given', timeline: label('timeline') || 'not given', hot: hot ? 'yes' : 'no' });
+          }
+          var done = contact.querySelector('.form-done');
+          var wa = done.querySelector('[data-done-wa]');
+          wa.href = wa.getAttribute('href').split('?')[0] + '?text=' + encodeURIComponent('Hi Wee4 Tech, I just sent an enquiry about ' + label('interest') + '. My name is ' + contact.elements.name.value.trim() + '.');
+          done.querySelector('[data-done-text]').textContent = hot
+            ? 'Thanks — we’ll prioritise your enquiry. For the fastest response, message us on WhatsApp now.'
+            : 'We’ll reply with a written scope, timeline and price within 24 hours. Want to talk sooner? Message us on WhatsApp.';
+          step1.hidden = true; step2.hidden = true;
+          contact.querySelector('.form-steps').hidden = true;
+          contact.querySelector('.form-status').className = 'form-status';
+          done.hidden = false;
+          contact.reset();
         })
         .catch(function () { status(contact, false, 'Something went wrong. Please try again or email info@wee4techsolutions.com.'); })
         .finally(function () { busy(contact, false); });
