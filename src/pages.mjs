@@ -72,13 +72,16 @@ const INDUSTRIES = [
 ];
 
 const TECH_GROUPS = [
-  { t: 'Web', items: ['React', 'Next.js', 'Angular', 'Node.js'] },
-  { t: 'Backend', items: ['.NET', 'Python', 'Node.js', 'REST APIs'] },
-  { t: 'Mobile', items: ['Flutter', 'React Native'] },
-  { t: 'E-commerce', items: ['Shopify', 'WooCommerce', 'Custom'] },
-  { t: 'Data', items: ['SQL Server', 'MySQL', 'MongoDB'] },
-  { t: 'Cloud & AI', items: ['AWS', 'Azure', 'LLM APIs'] },
+  { t: 'Web front end', icon: 'devices', d: 'Fast, SEO-friendly interfaces', items: [['React', 'react'], ['Next.js', 'nextdotjs'], ['Angular', 'angular'], ['TypeScript', 'typescript']] },
+  { t: 'Backend & APIs', icon: 'code', d: 'Secure business logic and integrations', items: [['.NET', 'dotnet'], ['Node.js', 'nodedotjs'], ['Python', 'python'], ['Django', 'django']] },
+  { t: 'Mobile apps', icon: 'smartphone', d: 'One codebase for Android and iOS', items: [['Flutter', 'flutter'], ['React Native', 'react'], ['Kotlin', 'kotlin'], ['Swift', 'swift']] },
+  { t: 'E-commerce', icon: 'cart', d: 'Stores that sell and stay in sync', items: [['Shopify', 'shopify'], ['WooCommerce', 'woocommerce'], ['WordPress', 'wordpress'], ['Razorpay', 'razorpay']] },
+  { t: 'Databases', icon: 'layers', d: 'Reliable, well-structured data', items: [['SQL Server', null, 'layers'], ['MySQL', 'mysql'], ['PostgreSQL', 'postgresql'], ['MongoDB', 'mongodb']] },
+  { t: 'Cloud & AI', icon: 'cloud', d: 'Hosting, automation and AI', items: [['AWS', null, 'cloud'], ['Azure', null, 'cloud'], ['Docker', 'docker'], ['LLM APIs', null, 'brain']] },
 ];
+const techLogo = ([name, slug, fallback]) => slug
+  ? `<img src="https://cdn.simpleicons.org/${slug}/e3eeec" alt="" width="22" height="22" loading="lazy" decoding="async">`
+  : icon(fallback);
 
 const HOME_PROCESS = [
   { t: 'Requirement call', w: '30 min · free', d: 'Tell us the problem. A voice note, a spreadsheet or a one-line idea is enough to start.' },
@@ -199,13 +202,19 @@ function home() {
   </div>
 </section>
 
-<section class="section">
+<section class="section dark tech-section">
   <div class="container">
-    <div class="section-head center">
-      <p class="eyebrow">Technology</p>
-      <h2>Proven tools, chosen for your project</h2>
+    <div class="tech-head">
+      <div>
+        <p class="eyebrow" style="color:var(--amber)">Technology</p>
+        <h2>Proven tools, chosen for your project</h2>
+      </div>
+      <p>We pick the stack that fits your team, budget and hosting — and that your next developer can maintain — not just the one we like best.</p>
     </div>
-    <div class="tech-groups">${TECH_GROUPS.map((g) => `<div><h3>${esc(g.t)}</h3><ul class="chips">${g.items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('')}</div>
+    <div class="tech-grid">${TECH_GROUPS.map((g) => `<div class="tech-card">
+      <div class="tech-card-head"><span class="icon-box">${icon(g.icon)}</span><div><h3>${esc(g.t)}</h3><p>${esc(g.d)}</p></div></div>
+      <ul>${g.items.map((i) => `<li>${techLogo(i)}<span>${esc(i[0])}</span></li>`).join('')}</ul>
+    </div>`).join('')}</div>
   </div>
 </section>
 
@@ -868,7 +877,19 @@ ${pageHero({ crumbs, eyebrow: 'Careers', h1: 'Build your career with Wee4 Tech',
 // ---------------- Contact ----------------
 function contact() {
   const crumbs = [HOME, { name: 'Contact', path: 'contact.html' }];
-  const opts = [...SERVICES.map((sv) => sv.name), 'Training', ...COURSES.map((c) => c.short), 'Other'];
+  // Short, plain-language choices. Aliases let service/course links pre-select the right one.
+  const opts = [
+    ['Custom business software', ['Custom Software Development', '.NET Development', 'IT Consulting & Services']],
+    ['E-commerce store', ['E-commerce Development']],
+    ['Website or web application', ['Website & Web App Development', 'React & Next.js Development']],
+    ['Mobile app (Android / iOS)', ['Mobile App Development']],
+    ['AI or automation', ['AI & Cloud Solutions']],
+    ['Hire developers / dedicated team', ['Hire Developers', 'Dedicated Development Team']],
+    ['Fix or maintain existing software', ['Software Maintenance & Support']],
+    ['SEO & digital marketing', ['Digital Marketing & SEO']],
+    ['IT training (Wee4 Academy)', ['Training', ...COURSES.map((c) => c.short)]],
+    ['Something else', ['Other']],
+  ];
   return {
     path: 'contact.html',
     pageType: 'ContactPage',
@@ -898,7 +919,7 @@ ${pageHero({ crumbs, eyebrow: 'Contact', h1: 'Get a project estimate in 24 hours
           <div><label for="email">Work email</label><input type="email" id="email" name="email" required autocomplete="email"></div>
           <div><label for="phone">WhatsApp / mobile</label><input type="tel" id="phone" name="phone" required autocomplete="tel" inputmode="tel" pattern="[0-9+ ]{10,16}" maxlength="16" title="Mobile number, 10 digits (add country code if outside India)"></div>
           <div><label for="company">Company <span class="opt">(optional)</span></label><input type="text" id="company" name="company" autocomplete="organization"></div>
-          <div class="full"><label for="interest">What do you need?</label><select id="interest" name="interest" required><option value="">Choose one</option>${opts.map((o) => `<option>${esc(o)}</option>`).join('')}</select></div>
+          <div class="full"><label for="interest">What do you need?</label><select id="interest" name="interest" required><option value="">Choose one</option>${opts.map(([o, al]) => `<option data-aliases="${esc(al.join('|'))}">${esc(o)}</option>`).join('')}</select></div>
         </div>
         <div class="form-actions"><button class="btn btn-brand" type="button" data-next>Continue ${icon('arrow')}</button></div>
       </fieldset>
@@ -928,7 +949,7 @@ ${pageHero({ crumbs, eyebrow: 'Contact', h1: 'Get a project estimate in 24 hours
 </section>
 `,
     scripts: `<script>
-(function(){var p=new URLSearchParams(location.search).get('interest');if(!p)return;var s=document.getElementById('interest');for(var i=0;i<s.options.length;i++){if(s.options[i].text===p){s.selectedIndex=i;return;}}})();
+(function(){var p=new URLSearchParams(location.search).get('interest');if(!p)return;var s=document.getElementById('interest');for(var i=1;i<s.options.length;i++){var o=s.options[i];if(o.text===p||(o.getAttribute('data-aliases')||'').split('|').indexOf(p)>-1){s.selectedIndex=i;if(o.text!==p){document.getElementById('message').value='Interested in: '+p+'\\n';}return;}}})();
 </script>`,
   };
 }
