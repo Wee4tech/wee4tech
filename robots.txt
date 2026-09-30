@@ -1,2 +1,26 @@
+# Wee4 Tech Solutions
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /src/
+
+# AI search & answer engines are welcome
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-SearchBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://wee4techsolutions.com/sitemap.xml

@@ -1,0 +1,802 @@
+{
+ "c-programming-course.html": [
+  {
+   "title": "C Introduction",
+   "topics": [
+    "Structure of C Programming",
+    "Keywords & Identifiers",
+    "Variables & Constants",
+    "Data Types",
+    "Input / Output",
+    "Operators & its Types"
+   ]
+  },
+  {
+   "title": "Control Statements",
+   "topics": [
+    "if…else",
+    "switch…case",
+    "While Loop",
+    "Do-while",
+    "For Loop",
+    "Break and Continue",
+    "goto"
+   ]
+  },
+  {
+   "title": "C Functions",
+   "topics": [
+    "C Programming Functions",
+    "User-defined Functions",
+    "Function Types",
+    "Recursion",
+    "Storage Class"
+   ]
+  },
+  {
+   "title": "Arrays",
+   "topics": [
+    "Array Declaration",
+    "Single Dimensional Array",
+    "Multi-dimensional Arrays",
+    "Arrays & Function"
+   ]
+  },
+  {
+   "title": "Pointers",
+   "topics": [
+    "Pointer Declaration",
+    "Advantages of Pointers",
+    "Pointers & Arrays",
+    "Pointers and Functions",
+    "Memory Allocation"
+   ]
+  },
+  {
+   "title": "Strings",
+   "topics": [
+    "Declaration of String and Character Array",
+    "String Functions"
+   ]
+  },
+  {
+   "title": "Structure and Union",
+   "topics": [
+    "Structure Declaration",
+    "struct & Pointer",
+    "struct & Function",
+    "Unions"
+   ]
+  },
+  {
+   "title": "Files and Other Concepts",
+   "topics": [
+    "Enumeration",
+    "Preprocessors",
+    "Standard Library",
+    "C Programming Examples"
+   ]
+  }
+ ],
+ "advanced-python-course.html": [
+  {
+   "title": "OOP",
+   "topics": [
+    "Class and Object",
+    "Attributes and Methods",
+    "Inheritance",
+    "Polymorphism",
+    "Method Overloading",
+    "Method Overriding",
+    "Encapsulation",
+    "Abstraction"
+   ]
+  },
+  {
+   "title": "Database",
+   "topics": [
+    "Introduction to Database",
+    "Relational Database",
+    "SQL",
+    "MongoDB",
+    "SQL vs NoSQL Database",
+    "MongoDB Shell and Compass",
+    "Connections",
+    "Executing Queries"
+   ]
+  },
+  {
+   "title": "Regular Expressions",
+   "topics": [
+    "Match Function",
+    "Search Function",
+    "Regex Module",
+    "Matching Versus Searching",
+    "Search and Replace",
+    "Patterns"
+   ]
+  },
+  {
+   "title": "Multi-threading",
+   "topics": [
+    "Introduction",
+    "Threads",
+    "Threading Module",
+    "Executing Threads",
+    "ThreadPool",
+    "Synchronizing Threads"
+   ]
+  },
+  {
+   "title": "Networking",
+   "topics": [
+    "Introduction",
+    "Socket Programming",
+    "IP Address and Port Number",
+    "Client",
+    "Server",
+    "Connections"
+   ]
+  },
+  {
+   "title": "GUI Programming",
+   "topics": [
+    "Introduction",
+    "Tkinter",
+    "Window",
+    "Labels",
+    "Widgets"
+   ]
+  },
+  {
+   "title": "NumPy",
+   "topics": [
+    "Introduction",
+    "Why NumPy?",
+    "Creating Arrays",
+    "Array Reshape",
+    "Array Dimensions",
+    "Matrix Manipulation",
+    "Attributes and Functions"
+   ]
+  },
+  {
+   "title": "Other Topics",
+   "topics": [
+    "Applications",
+    "Careers with Python",
+    "Basic Interview Questions - About Python",
+    "Frequently Asked Questions - About Python"
+   ]
+  }
+ ],
+ "cpp-programming-course.html": [
+  {
+   "title": "C++ Introduction",
+   "topics": [
+    "Overview of C++",
+    "Data Types and Literals",
+    "Variables & Constants",
+    "Operators in C++",
+    "Input / Output Statements",
+    "Basic Concepts of OOP",
+    "Advantages of OOP"
+   ]
+  },
+  {
+   "title": "Control Statements",
+   "topics": [
+    "if…else",
+    "switch…case",
+    "While Loop",
+    "Do-while",
+    "For Loop",
+    "Break and Continue"
+   ]
+  },
+  {
+   "title": "Functions in C++",
+   "topics": [
+    "Function Declaration and Definition",
+    "Arrays and Strings",
+    "Call by Value",
+    "Call by Reference"
+   ]
+  },
+  {
+   "title": "Classes & Objects",
+   "topics": [
+    "Defining classes",
+    "Creating objects",
+    "Access specifiers",
+    "Constructors and destructors",
+    "Member functions",
+    "Static members"
+   ]
+  },
+  {
+   "title": "Polymorphism",
+   "topics": [
+    "Meaning",
+    "Types of Polymorphism",
+    "Function Overloading",
+    "Operator Overloading",
+    "Memory Allocation"
+   ]
+  },
+  {
+   "title": "Inheritance",
+   "topics": [
+    "Overview of Inheritance",
+    "Base and Derived Classes",
+    "Single Inheritance",
+    "Multiple & Multilevel Inheritance",
+    "Hybrid and Hierarchical Inheritance"
+   ]
+  },
+  {
+   "title": "Exception Handling",
+   "topics": [
+    "Exceptions & its Types",
+    "Exception Hierarchies",
+    "Try, Catch, Throw",
+    "Exception Handler",
+    "Programming Examples"
+   ]
+  },
+  {
+   "title": "Files Streams and Templates",
+   "topics": [
+    "Standard Streams",
+    "Manipulators",
+    "Unformatted Input and Output",
+    "File Input and Output",
+    "Overview of Templates",
+    "Types of Templates"
+   ]
+  }
+ ],
+ "core-python-course.html": [
+  {
+   "title": "Introduction",
+   "topics": [
+    "History",
+    "Installation",
+    "Variables",
+    "Data Types",
+    "Operators"
+   ]
+  },
+  {
+   "title": "Control Statements",
+   "topics": [
+    "Simple If",
+    "If-elif-else",
+    "Nested If"
+   ]
+  },
+  {
+   "title": "Loops",
+   "topics": [
+    "For",
+    "While",
+    "Nested Loop"
+   ]
+  },
+  {
+   "title": "Strings and List",
+   "topics": [
+    "Accessing Strings",
+    "String Methods",
+    "String Slicing",
+    "Functions and Methods",
+    "Introduction",
+    "Accessing List",
+    "List Functions",
+    "Operations"
+   ]
+  },
+  {
+   "title": "Tuples and Sets",
+   "topics": [
+    "Introduction",
+    "Accessing Tuples",
+    "Operations",
+    "Unpacking",
+    "Accessing Sets",
+    "Frozenset",
+    "Set Functions"
+   ]
+  },
+  {
+   "title": "Dictionaries and Function",
+   "topics": [
+    "Introduction",
+    "Accessing Values",
+    "Properties",
+    "Defining a Function",
+    "Calling a Function",
+    "Types of Function",
+    "Function Arguments",
+    "Lambda Function",
+    "Global & Local Variables"
+   ]
+  },
+  {
+   "title": "Modules and File Handling",
+   "topics": [
+    "Importing Module",
+    "Accessing Module",
+    "Math Module",
+    "Random Module",
+    "Time Module",
+    "Introduction",
+    "Opening a File",
+    "Reading a File",
+    "Writing a File",
+    "Closing a File"
+   ]
+  },
+  {
+   "title": "Exception Handling and Other Concepts",
+   "topics": [
+    "Introduction",
+    "Except Clause",
+    "Try Finally Clause",
+    "User Defined Exceptions",
+    "Map",
+    "Reduce",
+    "Filter",
+    "List Comprehension",
+    "NumPy"
+   ]
+  }
+ ],
+ "data-science-course.html": [
+  {
+   "title": "Core Python",
+   "topics": [
+    "Introduction",
+    "Control Statements",
+    "Loops",
+    "Strings",
+    "Data Structures",
+    "Functions",
+    "Modules",
+    "File Handling",
+    "Exception Handling"
+   ]
+  },
+  {
+   "title": "Advanced Python",
+   "topics": [
+    "OOP",
+    "Database",
+    "Regular Expressions",
+    "Multi-threading",
+    "Networking",
+    "GUI Programming",
+    "NumPy"
+   ]
+  },
+  {
+   "title": "Pandas",
+   "topics": [
+    "Introduction",
+    "Series",
+    "Data Frame",
+    "Basic Functionality",
+    "Descriptive Statistics",
+    "Reading CSV and JSON Files",
+    "Indexing and Selecting Data",
+    "Reindexing",
+    "Pivot",
+    "Iteration",
+    "Sorting",
+    "Missing Data",
+    "Handling Missing Data",
+    "Groupby",
+    "Merging",
+    "Dates Conversion"
+   ]
+  },
+  {
+   "title": "Visualization",
+   "topics": [
+    "Introduction",
+    "Plotting Data",
+    "Matplotlib",
+    "Pyplot",
+    "Seaborn",
+    "Types of Visualization",
+    "Choosing the Right Chart"
+   ]
+  },
+  {
+   "title": "Other Topics",
+   "topics": [
+    "Real-time Applications",
+    "FAQ & Interview Preparation",
+    "Job Roles",
+    "Current Tools",
+    "Real-time Projects"
+   ]
+  }
+ ],
+ "java-course.html": [
+  {
+   "title": "Java Introduction",
+   "topics": [
+    "Installation",
+    "Setup",
+    "History",
+    "Java Programming Structure",
+    "Data Types, Variables & its Scopes",
+    "Operators & its Types"
+   ]
+  },
+  {
+   "title": "Control Statements and Loops",
+   "topics": [
+    "if…else",
+    "Nested If",
+    "Else If Ladder & Switch",
+    "Simple If",
+    "For Loop",
+    "While",
+    "Do-while",
+    "Nested Loop"
+   ]
+  },
+  {
+   "title": "Encapsulation",
+   "topics": [
+    "Classes and Objects",
+    "Methods & its Types",
+    "Static Variables & Methods",
+    "Constructors & its Types",
+    "Call by Value & Call by Reference",
+    "Access Modifiers"
+   ]
+  },
+  {
+   "title": "Polymorphism and Inheritance",
+   "topics": [
+    "Method Overloading",
+    "Method Overriding",
+    "Introduction",
+    "Single Inheritance",
+    "Multilevel Inheritance",
+    "Hierarchical Inheritance"
+   ]
+  },
+  {
+   "title": "Abstraction and Exception Handling",
+   "topics": [
+    "Abstract Classes",
+    "Abstract Methods",
+    "Interfaces",
+    "Types of Exception",
+    "Try and Catch Statement",
+    "Finally and Throw Statement"
+   ]
+  },
+  {
+   "title": "Arrays and Strings",
+   "topics": [
+    "Introduction",
+    "Single Dimensional Array",
+    "Multi Dimensional Array",
+    "String Class & its Methods",
+    "String Builder Class & its Methods"
+   ]
+  },
+  {
+   "title": "Collection Framework",
+   "topics": [
+    "List Interface",
+    "Set Interface",
+    "Queue Interface"
+   ]
+  },
+  {
+   "title": "Other Concepts",
+   "topics": [
+    "Multithreading",
+    "Wrapper Class",
+    "Lambda Functional Interface"
+   ]
+  }
+ ],
+ "mern-stack-course.html": [
+  {
+   "title": "HTML",
+   "topics": [
+    "Introduction",
+    "IDE Installation",
+    "Structure of HTML",
+    "Basic & Formatting Tags",
+    "List & its Types",
+    "Tables and its Attributes",
+    "Images and Link Tags",
+    "Forms & iFrames",
+    "Semantic Elements & Media Tags"
+   ]
+  },
+  {
+   "title": "CSS",
+   "topics": [
+    "Introduction",
+    "CSS Selectors",
+    "Types of CSS",
+    "Background, Position and Display",
+    "Properties",
+    "Borders, Margins, Padding and Outline",
+    "Box Model in CSS",
+    "Text & Font Properties",
+    "Z-index, Float & Clear",
+    "Pseudo-classes and Navbar",
+    "Transforms (2D & 3D)",
+    "Animations & Gradients",
+    "Flex and Grid"
+   ]
+  },
+  {
+   "title": "JavaScript",
+   "topics": [
+    "Introduction",
+    "Types of JS",
+    "Display Methods",
+    "Scope of Variables, Constants, Operators",
+    "Control Statements",
+    "Functions, Objects and Arrays",
+    "DOM (Document Object Model)",
+    "Validation, Regular Expressions",
+    "Event Handling",
+    "jQuery, AJAX, Query Selector",
+    "Create, Append and Remove Methods",
+    "OOP Concept"
+   ]
+  },
+  {
+   "title": "Bootstrap",
+   "topics": [
+    "Introduction",
+    "Features",
+    "Environmental Setup",
+    "Bootstrap Grid",
+    "Typography",
+    "Tables in Bootstrap",
+    "Images in Various Styles",
+    "Display Text Colors",
+    "Bootstrap Components",
+    "Glyphicons & Dropdown Menu",
+    "Button Groups and Toolbar",
+    "Responsive Navbar and Pagination",
+    "Labels, Badges, Progress Bar",
+    "Alerts and Dismissible Alerts"
+   ]
+  },
+  {
+   "title": "PHP",
+   "topics": [
+    "Introduction",
+    "Installation of XAMPP Server",
+    "Working of PHP Script",
+    "Creating First PHP Program",
+    "Embed PHP in HTML",
+    "Data Types & Constants",
+    "Scope of Variables in PHP",
+    "Operators & its Types",
+    "Control Structure",
+    "PHP Echo and Print Statements",
+    "Arrays and Objects",
+    "Functions in PHP",
+    "Form Handling",
+    "PHP Include vs Require",
+    "File Operations in PHP",
+    "OOP Concept",
+    "PHP with MySQL Connectivity"
+   ]
+  },
+  {
+   "title": "MySQL",
+   "topics": [
+    "Introduction",
+    "Database",
+    "Concept of RDBMS",
+    "Tables, Records and Fields",
+    "Working with phpMyAdmin",
+    "Data Types",
+    "Creating Database and Table",
+    "DDL & DML Concepts",
+    "Where Clause in MySQL",
+    "Operators",
+    "Types of Sorting",
+    "Grouping and Having Clause",
+    "Joins & its Types",
+    "Sub Queries and Aliases",
+    "Aggregate Functions"
+   ]
+  },
+  {
+   "title": "MongoDB",
+   "topics": [
+    "Introduction",
+    "MongoDB Features",
+    "Working with JSON",
+    "Features of JSON",
+    "Advantages of JSON",
+    "SQL vs NoSQL Database",
+    "Installation of MongoDB",
+    "MongoDB Environmental Setup",
+    "MongoDB Create Database",
+    "MongoDB Create Table",
+    "Collection",
+    "MongoDB Insert Collection",
+    "MongoDB Show Collection",
+    "MongoDB Select"
+   ]
+  },
+  {
+   "title": "React JS",
+   "topics": [
+    "Introduction",
+    "Installation of React JS",
+    "JS vs. React JS",
+    "JSX and Babel",
+    "React Environment",
+    "React JSX",
+    "React ES6",
+    "Features of ECMA Script",
+    "Sample Exercises in React JS",
+    "Inserting CSS in the Project",
+    "Importing External CSS",
+    "React Components",
+    "React Props",
+    "React States",
+    "React Lifecycle",
+    "Event-handling in React JS",
+    "Form Handling in React JS",
+    "React Lists",
+    "React Hooks",
+    "The this Keyword and Arrow Functions",
+    "React Routing Concept",
+    "React Redux Introduction"
+   ]
+  },
+  {
+   "title": "Node JS",
+   "topics": [
+    "Introduction",
+    "What is Node.js",
+    "Features of Node.js",
+    "Install Node.js on Windows",
+    "First Example Code",
+    "Console in Node",
+    "Concept of REPL",
+    "Node.js Simple Expressions",
+    "Using Variable",
+    "Multiline Expressions",
+    "Package Manager",
+    "Built-in Modules",
+    "MySQL Connectivity with Node"
+   ]
+  },
+  {
+   "title": "Express JS",
+   "topics": [
+    "Introduction",
+    "HTTP Get Method",
+    "HTTP Post Method",
+    "Routing Concept",
+    "Middleware",
+    "Templates in Express",
+    "Types of Middleware",
+    "Adding CSS Property",
+    "Adding a href, ul, Input Tags",
+    "Assigning Values to Variables",
+    "Applying Inline Style",
+    "Using If Condition Statement"
+   ]
+  }
+ ],
+ "machine-learning-course.html": [
+  {
+   "title": "Core Python",
+   "topics": [
+    "Introduction",
+    "Control Statements",
+    "Loops",
+    "Strings",
+    "Data Structures",
+    "Functions",
+    "Modules",
+    "File Handling",
+    "Exception Handling"
+   ]
+  },
+  {
+   "title": "Advanced Python",
+   "topics": [
+    "OOP",
+    "Database",
+    "Regular Expressions",
+    "Multi-threading",
+    "Networking",
+    "GUI Programming",
+    "NumPy"
+   ]
+  },
+  {
+   "title": "Pandas",
+   "topics": [
+    "Introduction",
+    "Series",
+    "Data Frame",
+    "Basic Functionality",
+    "Descriptive Statistics",
+    "Reading CSV and JSON Files",
+    "Handling Missing Data"
+   ]
+  },
+  {
+   "title": "Visualization",
+   "topics": [
+    "Introduction",
+    "Plotting Data",
+    "Matplotlib",
+    "Pyplot",
+    "Seaborn",
+    "Types of Visualization",
+    "Choosing the Right Chart"
+   ]
+  },
+  {
+   "title": "Introduction to Machine Learning",
+   "topics": [
+    "Applications of ML",
+    "Types of ML",
+    "Supervised vs Unsupervised ML",
+    "Libraries Suitable for ML",
+    "Real-time Projects"
+   ]
+  },
+  {
+   "title": "Regression",
+   "topics": [
+    "Linear Regression",
+    "Non-linear Regression",
+    "Multivariate",
+    "Model Evaluation"
+   ]
+  },
+  {
+   "title": "Classification",
+   "topics": [
+    "Logistic Regression",
+    "Decision Tree",
+    "Random Forest",
+    "K-Nearest Neighbor",
+    "Support Vector Machines",
+    "Naive Bayes",
+    "Model Evaluation"
+   ]
+  },
+  {
+   "title": "Unsupervised Learning and Other Topics",
+   "topics": [
+    "K-Means Clustering",
+    "Hierarchical Clustering",
+    "Dimensionality Reduction",
+    "Principal Component Analysis",
+    "Model Evaluation",
+    "Reinforcement Learning",
+    "Grid Search",
+    "How to Save Model",
+    "Bagging vs Boosting",
+    "Deep Learning"
+   ]
+  }
+ ]
+}
