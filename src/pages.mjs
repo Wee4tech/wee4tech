@@ -897,7 +897,7 @@ function contact() {
     description: `Get a custom software, e-commerce or app estimate in 24 hours from Wee4 Tech Solutions, Chennai. Call or WhatsApp ${SITE.phone} or send your requirement.`,
     crumbs,
     body: `
-${pageHero({ crumbs, eyebrow: 'Contact', h1: 'Get a project estimate in 24 hours', lead: 'Tell us what you want to build, fix or automate. Two quick steps, then we reply with a written scope, timeline and price.', actions: false })}
+${pageHero({ crumbs, eyebrow: 'Contact', h1: 'Get a project estimate in 24 hours', lead: 'Tell us what you want to build, fix or automate. We reply with a written scope, timeline and price.', actions: false })}
 <section class="section">
   <div class="container split top">
     <div>
@@ -911,39 +911,18 @@ ${pageHero({ crumbs, eyebrow: 'Contact', h1: 'Get a project estimate in 24 hours
       <iframe class="map" title="Wee4 Tech Solutions office location on Google Maps" src="${SITE.mapEmbed}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
     </div>
     <form id="contact-form" class="form-card" novalidate>
-      <div class="form-steps" aria-hidden="true"><span class="on">1. Contact</span><span data-step-ind="2">2. Project details</span></div>
-      <fieldset data-step="1">
-        <legend>Tell us who you are</legend>
-        <div class="form-grid">
-          <div><label for="name">Name</label><input type="text" id="name" name="name" required autocomplete="name"></div>
-          <div><label for="email">Work email</label><input type="email" id="email" name="email" required autocomplete="email"></div>
-          <div><label for="phone">WhatsApp / mobile</label><input type="tel" id="phone" name="phone" required autocomplete="tel" inputmode="tel" pattern="[0-9+ ]{10,16}" maxlength="16" title="Mobile number, 10 digits (add country code if outside India)"></div>
-          <div><label for="company">Company <span class="opt">(optional)</span></label><input type="text" id="company" name="company" autocomplete="organization"></div>
-          <div class="full"><label for="interest">What do you need?</label><select id="interest" name="interest" required><option value="">Choose one</option>${opts.map(([o, al]) => `<option data-aliases="${esc(al.join('|'))}">${esc(o)}</option>`).join('')}</select></div>
-        </div>
-        <div class="form-actions"><button class="btn btn-brand" type="button" data-next>Continue ${icon('arrow')}</button></div>
-      </fieldset>
-      <fieldset data-step="2">
-        <legend tabindex="-1">A few details so we can send an accurate estimate</legend>
-        <div class="form-grid">
-          <div><label for="business">Business type</label><select id="business" name="business"><option value="">Choose one</option><option>Manufacturer</option><option>Distributor / wholesaler</option><option>Retail / D2C brand</option><option>Construction / interiors</option><option>Services / B2B company</option><option>Startup</option><option>Education / healthcare</option><option>Other</option></select></div>
-          <div><label for="existing">What do you use today?</label><select id="existing" name="existing"><option value="">Choose one</option><option>Nothing yet</option><option>Website only</option><option>Excel / Tally / WhatsApp</option><option>Other software</option><option>Online store</option></select></div>
-          <div><label for="budget">Budget</label><select id="budget" name="budget"><option value="">Choose one</option><option value="b1" data-inr="Under ₹1 lakh" data-usd="Under $1,200">Under ₹1 lakh</option><option value="b2" data-inr="₹1–3 lakh" data-usd="$1,200–3,500">₹1–3 lakh</option><option value="b3" data-inr="₹3–10 lakh" data-usd="$3,500–12,000">₹3–10 lakh</option><option value="b4" data-inr="₹10 lakh+" data-usd="$12,000+">₹10 lakh+</option><option value="unsure">Not sure yet</option></select></div>
-          <div><label for="timeline">Timeline</label><select id="timeline" name="timeline"><option value="">Choose one</option><option>As soon as possible</option><option>1–3 months</option><option>3–6 months</option><option>Just exploring</option></select></div>
-          <div><label for="users">Number of users</label><select id="users" name="users"><option value="">Choose one</option><option>1–10</option><option>11–50</option><option>51–200</option><option>200+</option><option>Customers / public</option></select></div>
-          <div><label for="contactpref">Best way to reach you</label><select id="contactpref" name="contactpref"><option>WhatsApp</option><option>Phone call</option><option>Email</option><option>Video meeting</option></select></div>
-          <div class="full"><label for="website">Current website or software <span class="opt">(optional)</span></label><input type="text" id="website" name="website" placeholder="e.g. yourcompany.com or “Tally + Excel”"></div>
-          <div class="full"><label for="message">Describe what you need</label><textarea id="message" name="message" placeholder="What should the software do? What is slowing your team down today? Rough lists and voice-note style text are fine."></textarea></div>
-        </div>
-        <p class="form-note">We reply with a written scope, timeline and price within 24 hours. See our <a href="privacy-policy.html">privacy policy</a>.</p>
-        <div class="form-actions"><button class="btn btn-outline" type="button" data-back>Back</button><button class="btn btn-brand" type="submit"><span class="spinner" aria-hidden="true"></span> Send enquiry</button></div>
-      </fieldset>
-      <div class="form-status" role="status" aria-live="polite"></div>
-      <div class="form-done" hidden>
-        <h2>Thank you — we’ve got your enquiry</h2>
-        <p data-done-text>We’ll reply with next steps within 24 hours.</p>
-        <a class="btn btn-primary" data-done-wa href="${SITE.whatsapp}" target="_blank" rel="noopener">${icon('whatsapp')} Continue on WhatsApp</a>
+      <h2 style="font-size:1.4rem">Send us a message</h2>
+      <div class="form-grid">
+        <div><label for="name">Name</label><input type="text" id="name" name="name" required autocomplete="name"></div>
+        <div><label for="email">Email</label><input type="email" id="email" name="email" required autocomplete="email"></div>
+        <div><label for="phone">Mobile number</label><input type="tel" id="phone" name="phone" required autocomplete="tel" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" title="10-digit mobile number"></div>
+        <div><label for="interest">I’m interested in</label><select id="interest" name="interest" required><option value="">Choose one</option>${opts.map(([o, al]) => `<option data-aliases="${esc(al.join('|'))}">${esc(o)}</option>`).join('')}</select></div>
+        <div class="full"><label for="subject">Subject <span class="opt">(optional)</span></label><input type="text" id="subject" name="subject"></div>
+        <div class="full"><label for="message">Message</label><textarea id="message" name="message" required placeholder="A few lines about your project, timeline or the course you want to join"></textarea></div>
       </div>
+      <p class="form-note">We respect your privacy. See our <a href="privacy-policy.html">privacy policy</a>.</p>
+      <div style="margin-top:20px"><button class="btn btn-brand" type="submit"><span class="spinner" aria-hidden="true"></span> Send message</button></div>
+      <div class="form-status" role="status" aria-live="polite"></div>
     </form>
   </div>
 </section>

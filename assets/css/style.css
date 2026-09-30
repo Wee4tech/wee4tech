@@ -410,16 +410,6 @@ body.nav-open .wa-float { display: none; }
 .post-card h2, .post-card h3 { font-size: 1.15rem; line-height: 1.35; }
 .post-card .article-meta { margin-bottom: 10px; }
 
-/* ---------- Two-step enquiry form ---------- */
-#contact-form fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
-#contact-form legend { font-weight: 800; color: var(--ink); font-size: 1.2rem; margin-bottom: 18px; padding: 0; outline: none; }
-.form-steps { display: flex; gap: 8px; margin-bottom: 22px; font-size: .82rem; font-weight: 700; }
-.form-steps span { flex: 1; padding-top: 8px; border-top: 3px solid var(--line); color: var(--muted); }
-.form-steps span.on { border-color: var(--brand); color: var(--brand); }
-.form-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
-.form-done h2 { font-size: 1.4rem; }
-.form-done p { color: var(--muted); }
-
 /* ---------- Technology band ---------- */
 .tech-section { position: relative; overflow: hidden; isolation: isolate; }
 .tech-section::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(700px 380px at 100% 0%, rgba(23, 122, 113, .45), transparent 60%), radial-gradient(500px 300px at 0% 100%, rgba(253, 190, 38, .08), transparent 60%); }
