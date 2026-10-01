@@ -170,7 +170,7 @@ export const SERVICES = [
     icon: 'wrench',
     serviceType: 'Software maintenance and support',
     title: 'Software Maintenance & Support Services in Chennai | Wee4 Tech',
-    description: 'Software maintenance and support: bug fixes, security patches, monitoring, performance tuning and new features for web apps and business software. Monthly plans.',
+    description: 'Software maintenance and support in Chennai: bug fixes, security patches, monitoring, performance tuning and new features for web apps. Monthly plans.',
     h1: 'Software maintenance & support that keeps your systems healthy',
     lead: 'Development does not end at launch. We keep your applications secure, fast and up to date — and keep improving them as your business changes. We also take over systems built by other teams.',
     answer: {
@@ -207,8 +207,8 @@ export const SERVICES = [
     menu: 'Technology strategy, architecture & audits',
     icon: 'compass',
     serviceType: 'IT consulting',
-    title: 'IT Consulting Services in Chennai | Technology Strategy | Wee4 Tech',
-    description: 'IT consulting for SMEs and enterprises: technology roadmaps, software architecture, digital transformation, cloud readiness and code audits by Wee4 Tech Solutions.',
+    title: 'IT Consulting Services in Chennai | Wee4 Tech',
+    description: 'IT consulting in Chennai for SMEs and enterprises: technology roadmaps, software architecture, digital transformation, cloud readiness and code audits.',
     h1: 'IT consulting that turns technology into business results',
     lead: 'Independent advice on what to build, buy, fix or retire. We help you make confident technology decisions and then help you execute them.',
     answer: {
@@ -373,7 +373,7 @@ export const SERVICES = [
     ctaLabel: 'Book a team planning call',
     waText: 'Hi Wee4 Tech, I want to set up a dedicated development team.',
     title: 'Dedicated Development Team in India | Offshore Developers',
-    description: 'Build a dedicated software team in Chennai, India: developers, QA and a project lead working in your time zone. Transparent monthly pricing and full IP ownership.',
+    description: 'Build a dedicated software team in Chennai, India: developers, QA and a project lead in your time zone, with monthly pricing and full IP ownership.',
     h1: 'Your dedicated development team in India',
     lead: 'A long-term team of developers, testers and a project lead in Chennai that works only on your product — with your tools, your processes and overlapping working hours.',
     answer: {
@@ -521,7 +521,7 @@ export const COURSES = [
     slug: 'core-python-course.html', old: 'course-details_Core_Python.html', img: 'course-4',
     name: 'Core Python Course', short: 'Core Python', category: 'Programming',
     title: 'Core Python Course in Chennai for Beginners | Wee4 Tech',
-    description: 'Beginner-friendly Core Python course in Chennai: data types, loops, strings, lists, tuples, dictionaries, functions, modules, files and exceptions. With certificate.',
+    description: 'Beginner Core Python course in Chennai: data types, loops, strings, lists, dictionaries, functions, modules, files and exceptions. With certificate.',
     summary: 'Python is the most popular language for beginners, automation, data science and AI. This course builds a solid foundation in Python syntax, data structures, functions, file handling and exception handling.',
     audience: ['Complete beginners to programming', 'Students and fresh graduates', 'Working professionals who want to automate tasks', 'Anyone planning to move into data science or machine learning'],
     outcomes: ['Write clean Python programs using core syntax', 'Use lists, tuples, sets and dictionaries effectively', 'Create reusable functions, lambdas and modules', 'Read and write files and handle exceptions', 'Be ready for Advanced Python, Data Science or Django'],
@@ -534,7 +534,7 @@ export const COURSES = [
   {
     slug: 'advanced-python-course.html', old: 'course-details_Advanced_Python.html', img: 'course-3',
     name: 'Advanced Python Course', short: 'Advanced Python', category: 'Programming',
-    title: 'Advanced Python Course in Chennai | OOP, Databases, NumPy | Wee4 Tech',
+    title: 'Advanced Python Course in Chennai: OOP & NumPy | Wee4 Tech',
     description: 'Advanced Python training in Chennai: OOP, SQL and MongoDB, regular expressions, multithreading, networking, Tkinter GUI and NumPy. Certificate included.',
     summary: 'Take your Python skills to a professional level. Covers object-oriented programming, databases (SQL and MongoDB), regular expressions, multithreading, socket programming, GUI development and NumPy — plus interview preparation.',
     audience: ['Learners who have completed Core Python', 'Developers moving into backend or automation roles', 'Students preparing for Python developer interviews'],
@@ -562,7 +562,7 @@ export const COURSES = [
   {
     slug: 'mern-stack-course.html', old: 'course-details_Mern.html', img: 'course-6',
     name: 'Full Stack Web Development (MERN) Course', short: 'Full Stack (MERN)', category: 'Web Development',
-    title: 'MERN Stack Course in Chennai | Full Stack Web Development | Wee4 Tech',
+    title: 'MERN Stack & Full Stack Course in Chennai | Wee4 Tech',
     description: 'Full stack web development course in Chennai: HTML, CSS, JavaScript, Bootstrap, PHP, MySQL, MongoDB, React, Node.js and Express. Build real projects.',
     summary: 'Become a full stack web developer. Start with HTML, CSS, JavaScript and Bootstrap, learn server-side development with PHP and MySQL, then build modern applications with the MERN stack — MongoDB, Express.js, React and Node.js.',
     audience: ['Beginners who want a career in web development', 'Graduates from any stream looking to enter IT', 'Front-end developers who want to learn the backend', 'Freelancers and entrepreneurs building their own products'],

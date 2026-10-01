@@ -261,6 +261,7 @@ function servicesHub() {
 ${pageHero({ crumbs, eyebrow: 'Services', h1: 'Software development & IT services', lead: 'Everything you need to plan, build, run and grow digital products — delivered by one accountable team in Chennai.' })}
 <section class="section">
   <div class="container">
+    <div class="section-head"><p class="eyebrow">What we build</p><h2>Software development services</h2><p>From business software and online stores to apps, AI and long-term support.</p></div>
     <div class="grid grid-3">${SERVICES.filter((sv) => sv.group !== 'hire').map(serviceCard).join('\n')}</div>
     <div class="section-head" style="margin-top:64px"><p class="eyebrow">Hire developers</p><h2>Add developers or a whole team</h2><p>Pre-vetted developers from Chennai on monthly contracts, for teams in India and abroad.</p></div>
     <div class="grid grid-4">${SERVICES.filter((sv) => sv.group === 'hire').map(serviceCard).join('\n')}</div>
@@ -749,7 +750,7 @@ function about() {
   return {
     path: 'about.html',
     pageType: 'AboutPage',
-    title: 'About Wee4 Tech Solutions | Software Company in Chennai Since 2023',
+    title: 'About Wee4 Tech Solutions | Software Company in Chennai',
     description: 'Wee4 Tech Solutions is a Chennai software company, founded in 2023, delivering custom software, maintenance, IT consulting, digital marketing and IT training.',
     crumbs, faqs,
     body: `
@@ -946,7 +947,7 @@ function legal(path, name, h1, description, html) {
 const UPDATED = '30 September 2026';
 
 function privacy() {
-  return legal('privacy-policy.html', 'Privacy policy', 'Privacy policy', 'How Wee4 Tech Solutions collects, uses and protects personal information submitted through this website.', `
+  return legal('privacy-policy.html', 'Privacy policy', 'Privacy policy', 'How Wee4 Tech Solutions collects, uses and protects personal information from enquiries, job applications and website analytics, and your rights.', `
 <p class="updated">Last updated: ${UPDATED}</p>
 <p>This privacy policy explains how ${SITE.name} (“we”, “us”, “our”) collects, uses and protects personal information when you visit <a href="${SITE.url}/">${SITE.url.replace('https://', '')}</a> or contact us.</p>
 <h2>Information we collect</h2>
@@ -981,7 +982,7 @@ function privacy() {
 }
 
 function terms() {
-  return legal('terms-and-conditions.html', 'Terms & conditions', 'Terms & conditions', 'Terms and conditions governing the use of the Wee4 Tech Solutions website and services.', `
+  return legal('terms-and-conditions.html', 'Terms & conditions', 'Terms & conditions', 'Terms and conditions for using the Wee4 Tech Solutions website, software and services, including licences, intellectual property, liability and governing law.', `
 <p class="updated">Last updated: ${UPDATED}</p>
 <p>Welcome to ${SITE.name} (“we”, “us”, “our”). These terms govern your use of our website and any software or services we provide. By using them you agree to these terms. If you do not agree, please do not use them.</p>
 <h2>Acceptance of terms</h2>

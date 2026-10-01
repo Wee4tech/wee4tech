@@ -80,7 +80,7 @@ export const POSTS = [
     slug: 'dealer-ordering-system-for-distributors.html',
     title: 'Dealer Ordering System for Distributors: Take Orders Online',
     h1: 'How distributors can take dealer orders online — and stop re-typing WhatsApp orders',
-    description: 'Guide for Indian distributors: replace WhatsApp and phone orders with a dealer ordering portal and app, with dealer-wise pricing, credit limits and Tally export.',
+    description: 'Guide for distributors: replace WhatsApp and phone orders with a dealer ordering portal and app, with dealer-wise pricing, credit limits and Tally export.',
     excerpt: 'Replace WhatsApp and phone orders with a dealer ordering portal: what it should include, how it connects to Tally, and how to roll it out without upsetting dealers.',
     date: '2026-09-30',
     minutes: 6,

@@ -29,9 +29,15 @@ export const SITE = {
   mapLink: 'https://www.google.com/maps/search/?api=1&query=21%2F15+Bashyam+1st+Street+Otteri+Chennai+600012',
   social: {
     x: 'https://x.com/Wee4tech',
-    facebook: 'https://www.facebook.com/share/1B5MESCkk8/?mibextid=wwXIfr',
+    facebook: 'https://www.facebook.com/61572509766761',
     instagram: 'https://www.instagram.com/wee4tech/',
   },
+  // Other business profiles (used only in structured data so search engines connect them)
+  profiles: [
+    'https://www.indiamart.com/company/80611659/',
+    'https://www.naukri.com/wee4-tech-solutions-jobs-careers-124602214',
+    'https://cutshort.io/company/wee4-tech-solutions-41-wOaMkhO3',
+  ],
   gaId: 'G-3681GW1G8P',
   ogImage: '/assets/img/og-image.jpg',
 };
@@ -128,7 +134,7 @@ export function orgSchema(services, courses) {
       { '@type': 'ContactPoint', contactType: 'sales', telephone: SITE.phoneHref, email: SITE.email, areaServed: 'Worldwide', availableLanguage: ['English', 'Tamil'] },
       { '@type': 'ContactPoint', contactType: 'human resources', email: SITE.hrEmail },
     ],
-    sameAs: Object.values(SITE.social),
+    sameAs: [...Object.values(SITE.social), ...SITE.profiles],
     knowsAbout: ['Custom software development', 'Web application development', 'Mobile app development', 'Android app development', 'iOS app development', 'Flutter', 'React Native', 'Software maintenance and support', 'IT consulting', 'Cloud computing', 'Artificial intelligence', 'Digital marketing', 'Search engine optimization', 'IT staffing', 'Python', 'Java', 'MERN stack', 'Data science', 'Machine learning'],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',

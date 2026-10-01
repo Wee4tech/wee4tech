@@ -1,6 +1,6 @@
 # Wee4 Tech Solutions
 
-> Wee4 Tech Solutions is a software development, IT consulting and IT training company founded in 2023 and based in Chennai, Tamil Nadu, India. It builds custom business software, e-commerce stores, web applications and Android/iOS mobile apps; maintains and supports existing applications; provides IT consulting, cloud and AI solutions, digital marketing and IT staffing; and runs job-oriented programming courses.
+> Wee4 Tech Solutions is a custom software and e-commerce development company founded in 2023 and based in Chennai, Tamil Nadu, India. It builds business software, online stores, web applications, Android/iOS mobile apps and practical AI automation for manufacturers, distributors, retailers and growing businesses in India and abroad, maintains what it builds, and provides dedicated developers. It also runs Wee4 Academy, a job-oriented IT training programme.
 
 - Address: No. 21/15, Bashyam 1st Street, Otteri, Purasaiwakkam, Chennai, Tamil Nadu 600012, India
 - Phone: +91 95004 29423
