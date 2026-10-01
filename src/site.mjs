@@ -39,6 +39,8 @@ export const SITE = {
     'https://cutshort.io/company/wee4-tech-solutions-41-wOaMkhO3',
   ],
   gaId: 'G-3681GW1G8P',
+  // Google Search Console "HTML tag" verification: paste only the content="..." value here
+  googleVerification: '',
   ogImage: '/assets/img/og-image.jpg',
 };
 
@@ -291,7 +293,7 @@ export function layout(page, { services, courses }) {
   <meta name="robots" content="${robots}">
   <link rel="canonical" href="${url}">
   <meta name="author" content="${SITE.name}">
-  <meta name="theme-color" content="#122120">
+  <meta name="theme-color" content="#122120">${SITE.googleVerification ? `\n  <meta name="google-site-verification" content="${esc(SITE.googleVerification)}">` : ''}
   <meta name="geo.region" content="IN-TN">
   <meta name="geo.placename" content="Chennai">
   <meta name="geo.position" content="${SITE.geo.lat};${SITE.geo.lng}">
