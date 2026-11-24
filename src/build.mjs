@@ -87,6 +87,8 @@ out('llms.txt', `# ${SITE.name}
 - Phone: ${SITE.phone}
 - Email: ${SITE.email} (careers: ${SITE.hrEmail})
 - Serves: Chennai, India and international clients
+- Not affiliated with: We4You Tech Solutions Private Limited (Tiruchirappalli) or WeeTech Solution Pvt Ltd (Surat)
+- Portfolio: ${abs('portfolio.html')}
 
 ## Services
 

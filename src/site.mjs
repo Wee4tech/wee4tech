@@ -29,7 +29,7 @@ export const SITE = {
   mapLink: 'https://www.google.com/maps/search/?api=1&query=21%2F15+Bashyam+1st+Street+Otteri+Chennai+600012',
   social: {
     x: 'https://x.com/Wee4tech',
-    facebook: 'https://www.facebook.com/61572509766761',
+    facebook: 'https://www.facebook.com/profile.php?id=61597031004359',
     instagram: 'https://www.instagram.com/wee4tech/',
   },
   // Other business profiles (used only in structured data so search engines connect them)
@@ -37,7 +37,12 @@ export const SITE = {
     'https://www.indiamart.com/company/80611659/',
     'https://www.naukri.com/wee4-tech-solutions-jobs-careers-124602214',
     'https://cutshort.io/company/wee4-tech-solutions-41-wOaMkhO3',
+    'https://www.placementindia.com/wee4-tech-solutions-chennai-1274427/',
+    'https://www.facebook.com/61572509766761',
   ],
+  // Shown on the About page and in structured data so search engines and AI answers
+  // don't confuse Wee4 Tech Solutions with similarly named companies.
+  disambiguation: 'Wee4 Tech Solutions (wee4techsolutions.com) is a custom software and e-commerce development company based in Otteri, Chennai, founded in 2023. It is a separate business and is not affiliated with We4You Tech Solutions Private Limited (Tiruchirappalli) or WeeTech Solution Pvt Ltd (Surat).',
   gaId: 'G-3681GW1G8P',
   // Google Search Console "HTML tag" verification: paste only the content="..." value here
   googleVerification: '',
@@ -113,7 +118,8 @@ export function orgSchema(services, courses) {
     '@id': ORG_ID,
     name: SITE.name,
     legalName: SITE.legalName,
-    alternateName: ['Wee4 Tech', 'Wee4Tech', 'Wee4techsolutions'],
+    alternateName: ['Wee4 Tech', 'Wee4Tech', 'Wee4techsolutions', 'Wee4 Tech Solutions Chennai'],
+    disambiguatingDescription: SITE.disambiguation,
     url: `${SITE.url}/`,
     logo: { '@type': 'ImageObject', url: `${SITE.url}/assets/img/logo.png`, width: 480, height: 128 },
     image: `${SITE.url}${SITE.ogImage}`,
@@ -207,6 +213,7 @@ function header(active, services) {
           </ul>
         </li>
         <li><a href="courses.html"${is('courses.html')}>Academy</a></li>
+        <li><a href="portfolio.html"${is('portfolio.html')}>Our work</a></li>
         <li><a href="about.html"${is('about.html')}>About</a></li>
         <li><a href="blog.html"${is('blog.html')}>Blog</a></li>
         <li><a href="career.html"${is('career.html')}>Careers</a></li>
@@ -247,6 +254,7 @@ function footer(services, courses) {
         <h2>Company</h2>
         <ul>
           <li><a href="about.html">About us</a></li>
+          <li><a href="portfolio.html">Our work</a></li>
           <li><a href="blog.html">Blog</a></li>
           <li><a href="career.html">Careers</a></li>
           <li><a href="contact.html">Contact</a></li>

@@ -435,3 +435,14 @@ body.nav-open .wa-float { display: none; }
 .field-error { color: #b42318; font-size: .86rem; font-weight: 600; margin: 6px 0 0; }
 [aria-invalid="true"] { border-color: #d92d20 !important; background: #fffbfa; }
 [aria-invalid="true"]:focus { box-shadow: 0 0 0 4px rgba(217, 45, 32, .14) !important; }
+
+/* ---------- Portfolio ---------- */
+.project-card { padding: 0; overflow: hidden; display: grid; grid-template-columns: 1.1fr 1fr; }
+.project-shot { display: block; align-self: start; position: sticky; top: 96px; margin: 24px 0 24px 24px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+.project-shot img { width: 100%; height: auto; }
+.project-body { padding: 36px; }
+.project-body h2 { font-size: 1.9rem; margin-bottom: .3em; }
+.project-body h3 { font-size: 1.05rem; margin: 1.2em 0 .4em; }
+.project-body .tag { font-size: .8rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--brand); margin-bottom: 8px; }
+.project-body .lead-sm { font-size: 1.08rem; color: var(--text); }
+@media (max-width: 960px) { .project-card { grid-template-columns: 1fr; } .project-shot { position: static; margin: 16px 16px 0; } .project-body { padding: 24px; } }

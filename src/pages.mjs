@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { SITE, ORG_ID, esc, abs, icon, faqHtml, ctaBand, pageHero, breadcrumbHtml } from './site.mjs';
-import { SERVICES, COURSES, COURSE_FACTS, TESTIMONIALS, CLIENTS } from './content.mjs';
+import { SERVICES, COURSES, COURSE_FACTS, TESTIMONIALS, CLIENTS, PROJECTS } from './content.mjs';
 import { blogPages } from './blog.mjs';
 
 const SYLLABUS = JSON.parse(readFileSync(new URL('./syllabus.json', import.meta.url), 'utf8'));
@@ -113,7 +113,7 @@ function home() {
         <a class="btn btn-primary" href="contact.html">Get a project estimate in 24 hours ${icon('arrow')}</a>
         <a class="btn btn-ghost" href="${wa}" target="_blank" rel="noopener">${icon('whatsapp')} WhatsApp us</a>
       </div>
-      <p class="proof">Trusted by ${CLIENTS.map((c) => `<strong>${esc(c.name)}</strong>`).join(' · ')} · <a href="#clients">See our work</a></p>
+      <p class="proof">Trusted by ${CLIENTS.map((c) => `<strong>${esc(c.name)}</strong>`).join(' · ')} · <a href="portfolio.html">See our work</a></p>
     </div>
     <aside class="hero-card" aria-label="How we work">
       <h2>From idea to impact</h2>
@@ -745,6 +745,7 @@ function about() {
   const crumbs = [HOME, { name: 'About us', path: 'about.html' }];
   const faqs = [
     { q: 'When was Wee4 Tech Solutions founded?', a: `Wee4 Tech Solutions was established in ${SITE.founded} in Chennai, Tamil Nadu, India.` },
+    { q: 'Is Wee4 Tech Solutions the same as We4You Tech Solutions or WeeTech Solution?', a: 'No. Wee4 Tech Solutions (wee4techsolutions.com) is an independent custom software and e-commerce development company in Otteri, Chennai. It is not related to We4You Tech Solutions Private Limited in Tiruchirappalli or WeeTech Solution Pvt Ltd in Surat.' },
     { q: 'What makes Wee4 Tech different from other software companies?', a: 'We combine software delivery, long-term maintenance, digital marketing and IT training under one roof, so clients get one accountable partner and our trainers teach from real project experience.' },
   ];
   return {
@@ -765,6 +766,14 @@ ${pageHero({ crumbs, eyebrow: `Est. ${SITE.founded} · Chennai`, h1: 'Driven by 
       <p>Every engagement begins with a deep understanding of your objectives, challenges and audience. Your satisfaction is our priority — we work closely with you to deliver results that exceed expectations.</p>
     </div>
     <img class="rounded-img" src="assets/img/optimized/about.webp" alt="Wee4 Tech Solutions team in a planning meeting" width="1024" height="768" loading="lazy" decoding="async">
+  </div>
+</section>
+<section class="section-sm">
+  <div class="container">
+    <div class="answer">
+      <h2>Company facts</h2>
+      <p>${esc(SITE.disambiguation)} Office: ${esc(SITE.address.street)}, ${SITE.address.city} ${SITE.address.postal}, Tamil Nadu. Phone: ${SITE.phone}. Email: ${SITE.email}.</p>
+    </div>
   </div>
 </section>
 <section class="section-sm">
@@ -804,6 +813,57 @@ ${pageHero({ crumbs, eyebrow: `Est. ${SITE.founded} · Chennai`, h1: 'Driven by 
 </section>
 <section class="section"><div class="container">${faqHtml(faqs)}</div></section>
 ${ctaBand()}
+`,
+  };
+}
+
+
+// ---------------- Portfolio ----------------
+function portfolio() {
+  const crumbs = [HOME, { name: 'Our work', path: 'portfolio.html' }];
+  const faqs = [
+    { q: 'What kind of projects does Wee4 Tech Solutions build?', a: 'Lead-generation websites, e-commerce stores, custom business software, web applications and mobile apps for businesses in Chennai and across India.' },
+    { q: 'Can I see more examples relevant to my industry?', a: 'Yes. Tell us your industry and what you want to build, and we will share relevant examples and references on a short call.' },
+  ];
+  const card = (p) => `<article class="card project-card">
+    <a class="project-shot" href="${p.url}" target="_blank" rel="noopener" aria-label="Visit ${esc(p.name)} website"><img src="${p.img}" alt="${esc(p.name)} website homepage designed and built by Wee4 Tech Solutions" width="${p.imgW}" height="${p.imgH}" loading="lazy" decoding="async"></a>
+    <div class="project-body">
+      <p class="tag">${esc(p.industry)} · ${esc(p.type)} · ${esc(p.year)}</p>
+      <h2>${esc(p.name)}</h2>
+      <p class="lead-sm">${esc(p.summary)}</p>
+      <h3>The challenge</h3>
+      <p>${esc(p.challenge)}</p>
+      <h3>What we built</h3>
+      <ul class="check-list">${p.built.map((b) => `<li>${esc(b)}</li>`).join('')}</ul>
+      <ul class="chips">${p.tech.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
+      <div class="hero-actions" style="margin:24px 0 0"><a class="btn btn-brand" href="${p.url}" target="_blank" rel="noopener">Visit ${esc(p.name)} ${icon('arrow')}</a><a class="btn btn-outline" href="contact.html?interest=${encodeURIComponent('Website & Web App Development')}">Build something similar</a></div>
+    </div>
+  </article>`;
+  return {
+    path: 'portfolio.html',
+    pageType: 'CollectionPage',
+    title: 'Our Work: Websites & Software by Wee4 Tech Solutions',
+    description: 'Portfolio of Wee4 Tech Solutions, Chennai: lead-generation websites, e-commerce stores and custom software, including the EnerBuild rooftop solar website.',
+    crumbs, faqs,
+    schema: {
+      '@type': 'ItemList',
+      name: 'Wee4 Tech Solutions portfolio',
+      itemListElement: PROJECTS.map((p, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'CreativeWork', name: `${p.name} website`, url: p.url, about: p.industry, creator: { '@id': ORG_ID }, dateCreated: p.year, image: `${SITE.url}/${p.img}` } })),
+    },
+    body: `
+${pageHero({ crumbs, eyebrow: 'Our work', h1: 'Websites and software we have built', lead: 'Real projects for real businesses. Each one is built to bring in enquiries and to be easy for the client to run.', cta: 'Start your project' })}
+<section class="section">
+  <div class="container">${PROJECTS.map(card).join('')}</div>
+</section>
+<section class="section alt">
+  <div class="container">
+    <div class="section-head center"><p class="eyebrow">Clients</p><h2>Businesses we work with</h2></div>
+    ${clientsHtml()}
+    <div class="mt-lg">${testimonialsHtml()}</div>
+  </div>
+</section>
+<section class="section"><div class="container"><div class="section-head center"><h2>Questions about our work</h2></div>${faqHtml(faqs)}</div></section>
+${ctaBand({ title: 'Want results like these?', text: 'Tell us about your business. You will get a written scope, timeline and price within 24 hours.', primary: { label: 'Get a project estimate', href: 'contact.html' } })}
 `,
   };
 }
@@ -1023,7 +1083,7 @@ function notFound() {
 }
 
 export function allPages() {
-  return [home(), servicesHub(), ...SERVICES.map(servicePage), coursesHub(), ...COURSES.map(coursePage), about(), ...blogPages(), career(), contact(), privacy(), terms(), notFound()];
+  return [home(), servicesHub(), ...SERVICES.map(servicePage), coursesHub(), ...COURSES.map(coursePage), about(), portfolio(), ...blogPages(), career(), contact(), privacy(), terms(), notFound()];
 }
 
 // Old URLs → new URLs (static redirect stubs)
@@ -1034,8 +1094,7 @@ export const REDIRECTS = {
   'termsandcondition.html': 'terms-and-conditions.html',
   'testimonials.html': 'about.html',
   'team.html': 'about.html',
-  'portfolio.html': 'services.html',
-  'portfolio-details.html': 'services.html',
+  'portfolio-details.html': 'portfolio.html',
   'pricing.html': 'contact.html',
   'blog-details.html': 'blog.html',
   'web-app-development.html': 'web-development-company-chennai.html',

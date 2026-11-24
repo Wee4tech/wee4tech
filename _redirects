@@ -25,10 +25,8 @@
 /testimonials  /about.html  301
 /team.html  /about.html  301
 /team  /about.html  301
-/portfolio.html  /services.html  301
-/portfolio  /services.html  301
-/portfolio-details.html  /services.html  301
-/portfolio-details  /services.html  301
+/portfolio-details.html  /portfolio.html  301
+/portfolio-details  /portfolio.html  301
 /pricing.html  /contact.html  301
 /pricing  /contact.html  301
 /blog-details.html  /blog.html  301

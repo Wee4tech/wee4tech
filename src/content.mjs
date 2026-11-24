@@ -611,7 +611,33 @@ export const TESTIMONIALS = [
   { text: 'Working with Wee4 Tech was a smooth and rewarding experience. They revamped our online store with user-friendly features and a modern design. Our customers love the new interface, and we’ve seen a significant boost in engagement and conversions.', name: 'Karthik S', role: 'Entrepreneur' },
 ];
 
+export const PROJECTS = [
+  {
+    slug: 'enerbuild',
+    name: 'EnerBuild',
+    url: 'https://enerbuild.in/',
+    img: 'assets/img/optimized/work-enerbuild.webp',
+    imgW: 1200, imgH: 717,
+    industry: 'Solar energy · Chennai',
+    type: 'Lead-generation website',
+    year: '2026',
+    summary: 'A fast, SEO-ready website for EnerBuild, a rooftop solar installer serving homes, businesses and factories across Tamil Nadu, built to turn visitors into site-visit bookings.',
+    challenge: 'Solar buyers compare several installers and have the same questions about cost, system size and the PM Surya Ghar subsidy before they call. EnerBuild needed a site that answers those questions clearly, ranks in local search and makes booking a site visit effortless.',
+    built: [
+      'Call-back form on the first screen that captures the need and monthly EB bill, so the team can qualify leads before calling',
+      'Separate pages for home, commercial and industrial solar, solar street lights and AMC',
+      'A partner section for solar companies that want EnerBuild as their white-label installation crew',
+      'System-size table that helps homeowners match their EB units to the right kW',
+      'Subsidy and net-metering guides, FAQs and a site-wide "Ask a question" search',
+      'Service-area coverage for Chennai, Coimbatore, Madurai, Tiruchirappalli, Salem and Bengaluru',
+    ],
+    tech: ['Next.js', 'React', 'Responsive design', 'Technical SEO', 'Lead capture'],
+    services: ['web-development-company-chennai.html', 'digital-marketing.html'],
+  },
+];
+
 export const CLIENTS = [
+  { name: 'EnerBuild', url: 'https://enerbuild.in/', img: 'assets/img/optimized/client-enerbuild.webp', w: 240, h: 86 },
   { name: 'Roshan Bags', url: 'https://roshanbags.com/', img: 'assets/img/optimized/client-roshan.webp', w: 363, h: 90 },
   { name: '3D Render Shop', url: 'https://3drendershop.com/', img: 'assets/img/optimized/client-3drender.webp', w: 198, h: 84 },
   { name: 'Suvaiyini', url: 'https://suvaiyini.com/', img: 'assets/img/optimized/client-suvaiyini.webp', w: 179, h: 160 },
