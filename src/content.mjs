@@ -105,7 +105,7 @@ export const SERVICES = [
       'We build modern, mobile-first websites and web apps using proven frameworks, with Core Web Vitals, accessibility and structured data treated as requirements — not afterthoughts.',
     ],
     included: [
-      { t: 'Business websites', d: 'Fast, responsive company websites with a CMS your team can update without a developer.' },
+      { t: 'Business websites from ₹4,999', d: 'Fast, responsive company websites of up to 5 pages, with a WhatsApp chat button and contact form. Domain and hosting are billed separately.' },
       { t: 'E-commerce front ends', d: 'Fast storefronts and custom shopping features. For complete online stores, see our e-commerce development service.' },
       { t: 'Web applications & portals', d: 'Dashboards, booking systems, customer and vendor portals with secure logins and roles.' },
       { t: 'Progressive web apps (PWAs)', d: 'Web apps that load fast, work offline and can be installed on a phone like a native app.' },
@@ -116,6 +116,7 @@ export const SERVICES = [
     tech: ['HTML5 & CSS3', 'JavaScript / TypeScript', 'React', 'Next.js', 'Angular', 'Node.js', 'Express', 'PHP / Laravel', 'WordPress', 'Shopify', 'MongoDB', 'MySQL'],
     why: ['Mobile-first, accessible design', 'Performance budgets and Core Web Vitals targets', 'SEO and analytics ready at launch', 'Clear handover so your team can manage content', 'Ongoing support and improvements available'],
     faqs: [
+      { q: 'How much does a business website cost?', a: 'Business websites start at ₹4,999 for up to 5 pages, including mobile-friendly design, a contact form, a WhatsApp chat button and basic SEO setup. Domain registration and hosting are billed separately. Larger sites, e-commerce stores and web applications are quoted after a free requirement call, with a written estimate within 24 hours.' },
       { q: 'How long does it take to build a business website?', a: 'A typical 5–10 page business website takes 3–5 weeks from content sign-off. E-commerce stores and custom web apps take longer depending on features and integrations.' },
       { q: 'Will my new website be SEO-friendly?', a: 'Yes. Every site we build ships with semantic HTML, fast loading, mobile optimisation, meta tags, XML sitemaps, schema.org structured data and Google Analytics. For ongoing ranking growth, see our <a href="digital-marketing.html">digital marketing and SEO services</a>.' },
       { q: 'Can you redesign my existing website without losing Google rankings?', a: 'Yes. We audit current rankings and URLs, map old pages to new ones, set up 301 redirects and monitor Search Console after launch to protect your traffic.' },
